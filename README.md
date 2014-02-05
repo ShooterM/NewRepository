@@ -1,4 +1,4 @@
 NewRepository
 =============
-
-First repository
+This is a very rich file!
+First repository :)
