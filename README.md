@@ -1,4 +1,3 @@
 NewRepository
 =============
-This is a very rich file!
-First repository :)
+Boishu Misha
