@@ -1,4 +1,4 @@
 NewRepository
 =============
-Boishuk Misha
+Boichuk Misha
 
