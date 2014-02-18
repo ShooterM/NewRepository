@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form name='addBook' id='booksFrm' method="post">
+	<form name='addPublisher' id='booksFrm' method="post">
 		Name
 		<br />
 		<input type='text' class='field' name='pub_name' />					
@@ -19,10 +19,10 @@
 		<select name='editor_id'>
 			<?php getEditors(); ?>
 		</select>
-		<input type='submit' name='submitPublisher' class='button' value='Insert'>
+		<input type='submit' name='submitPublisher' class='button' value='Insert' />
 		<hr />
 		<input type='text' class='field' name='publisher_id' />
-		<input type='submit' name='deletePublisher' class='button' value='Delete'>
+		<input type='submit' name='deletePublisher' class='button' value='Delete' />
 	</form> 
 	<?php
 		if(isset($_REQUEST['submitPublisher'])) {
@@ -43,7 +43,7 @@
 		if(isset($_REQUEST['deletePublisher'])) {
 			$id = $_POST['publisher_id'];
 			if(!empty($id)) {
-				removeAuthor($id);
+				removePublisher($id);
 			}
 		}
 	?>

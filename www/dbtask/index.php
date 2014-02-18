@@ -9,8 +9,8 @@ include("f_lib.php");
  * Load content
  * @param string contentPath
  */ 
-function load_content($str) {
-	$homepage = file_get_contents($str);
+function load_content($contentPath) {
+	$homepage = file_get_contents($contentPath);
 	print($homepage);
 }
 
@@ -31,6 +31,12 @@ function load_content($str) {
 	<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 	<script src="../js/script.js"></script>
+	<style>
+		#title:hover {
+			color: #00BFFF;
+			transition: color 2.1s linear;
+		}
+	</style>
 </head>
 <body>
 	<div id='header'>
@@ -55,11 +61,20 @@ function load_content($str) {
 				<a href=''>Database</a>
 				<ul>
 					<li>
+						<a href='?pageContent=Authors'>Authors</a>
+					</li>
+					<li>
+						<a href='?pageContent=Books'>Books</a>
+					</li>
+					<li>
+						<a href='?pageContent=Publishers'>Publishers</a>
+					</li>
+					<li>
 						<a href='?pageContent=all'>Small tables</a>
 					</li>
 					<li>
 						<a href='?pageContent=search'>Search</a>
-					</li>
+					</li>					
 				</ul>
 			</li>
 			<li>
@@ -68,27 +83,21 @@ function load_content($str) {
 		</ul>
 	</div>
 	<div id='content'>	
-		<div id='left-side'>			
-			<form name='mainFrm' id='mainFrm' method='post'>
-			Table
-			<br />
-			<select name='tableSelector' form='mainFrm'>
-				<option value='Books'>Books</option>
-				<option value='Authors'>Authors</option>
-				<option value='Publishers'>Publishers</option>				
-			</select>		
-			<input class="button" type='submit' name='submitTable' value='Select' />
-			<hr />
-			Sort			
-				<input type='radio' value='1' name='order' />
-				Id
-				<input type='radio' value='2' name='order' />
-				Name
-			</form> 
-			<hr />
+		<div id='left-side'>		
 			<?php 
-
-				$table = $_POST['tableSelector'];			
+				$table = $_GET['pageContent'];
+			?>
+			<div class='field' id='title' 
+				 style="letter-spacing: 1px; 
+				 		margin: auto; 
+				 		text-align: center; 
+				 		font-weight: bold; 
+				 		padding-bottom: 5px;
+				 		font-family: Arial, fantasy" >			
+				<?php print($table); ?>
+			</div>
+			<hr />
+			<?php 	 			
 				if($table === "Books") {
 					require ("insertBook.php");					
 				} else {
@@ -110,16 +119,18 @@ function load_content($str) {
 					$order = "";
 				}
 				
-				if (isset($_POST['submitTable']) && $_POST['tableSelector'] === "Authors") {
-					print("<h3>".$_POST['tableSelector']."</h3>");
+				if ($_GET['pageContent'] === "Authors") {
+					print("<h3>".$_GET['pageContent']."</h3>");
+					//print("<h3>".$_POST['tableSelector']."</h3>");
 					showAuthors($order);					
 				} else {
-					if (isset($_POST['submitTable']) && $_POST['tableSelector'] === "Publishers") {
-						print("<h3>".$_POST['tableSelector']."</h3>");									
+					if ($_GET['pageContent'] === "Publishers") {
+						print("<h3>".$_GET['pageContent']."</h3>");
+						//print("<h3>".$_POST['tableSelector']."</h3>");									
 						showPublishers($order);
 					} else {					
-						if (isset($_POST['submitTable']) && $_POST['tableSelector'] === "Books") {
-							print("<h3>".$_POST['tableSelector']."</h3>");									
+						if ($_GET['pageContent'] === "Books") {
+							print("<h3>".$_GET['pageContent']."</h3>");									
 							showBooks($order);
 						} else {
 							if(isset($_REQUEST) && !is_null($_GET['pageContent'])){

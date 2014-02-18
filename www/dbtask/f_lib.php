@@ -1,14 +1,17 @@
 <?php
 
-function getCorectDate($date) {
-	return  str_replace("/", "-", $date);
+function getCorrectDate($date) {
+	$parts = explode('/', $date);
+	return  "$parts[2]-$parts[0]-$parts[1]";
 }
 
 function loadSubPages($page) {
 	if ($page === "all") {
 		require("smallTables.php");
 	} else {
-		require("search.php");
+		if ($page === "search") {
+			require("search.php");
+		}
 	}
 }
 
@@ -110,8 +113,7 @@ function showGenres() {
 
 function addBook($book) {
 	$con = getConnector();
-	$sqlQuery = "INSERT INTO `books`(`author_id`,`title`,`year`,`publisher_id`,`page_count`,`receipt_date`,`genre_id`) 
-				VALUES(".intval($book['author_id']).", '".$book['title']."', ".intval($book['year']).", ".intval($book['publisher_id']).", ".intval($book['page_count']).", '".$book['receipt_date']."', ".intval($book['genre_id']).")";
+	$sqlQuery = "INSERT INTO `books`(`author_id`,`title`,`year`,`publisher_id`,`page_count`,`receipt_date`,`genre_id`) VALUES(".intval($book['author_id']).", '".$book['title']."', ".intval($book['year']).", ".intval($book['publisher_id']).", ".intval($book['page_count']).", '".$book['date']."' ,".intval($book['genre_id']).")";
 	getQueryResult($con, $sqlQuery);
 	mysql_close($con);
 }
@@ -119,7 +121,7 @@ function addBook($book) {
 function addAuthor($author) {
 	$con = getConnector();
 	$sqlQuery = "INSERT INTO `authors`(`name`,`surname`,`birth_date`,`death_date`,`country_id`) 
-				VALUES('".intval($author['name'])."', '".$author['surname']."', '".$author['birth_date']."', '".$author['death_date']."', ".intval($author['country_id']).")";
+				VALUES('".$author['name']."', '".$author['surname']."', '".$author['birth_date']."', '".$author['death_date']."', ".intval($author['country_id']).")";
 	getQueryResult($con, $sqlQuery);
 	mysql_close($con);
 }
@@ -128,6 +130,7 @@ function addPublisher($publisher) {
 	$con = getConnector();
 	$sqlQuery = "INSERT INTO `publishers`(`pub_name`,`address`,`editor_id`) 
 				VALUES('".$publisher['pub_name']."', ".intval($publisher['address_id']).", ".intval($publisher['editor_id']).")";
+	print($sqlQuery);
 	getQueryResult($con, $sqlQuery);
 	mysql_close($con);
 }
@@ -232,7 +235,7 @@ function search() {
 	}
 }
 
-function getAuthors(){
+function getAuthors() {
 	$con = getConnector();
 	$sqlQuery = "SELECT `a`.`id`, CONCAT_WS(' ',a.name,a.surname) AS `author`  FROM `authors` `a`";
 	$result = getQueryResult($con, $sqlQuery);
@@ -282,7 +285,7 @@ function getAddresses() {
 	closeConnection($result, $con);
 }
 
-function getEditors(){
+function getEditors() {
 	$con = getConnector();
 	$sqlQuery = "SELECT `id`, CONCAT_WS(' ',name,surname) AS `editor`  FROM `editors`";
 	$result = getQueryResult($con, $sqlQuery);
