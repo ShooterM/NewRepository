@@ -1,0 +1,75 @@
+@CHARSET "UTF-8";
+
+h3 {
+	margin: auto;
+	width: 100px;
+	padding: 10px;
+}
+
+#left-side {
+	width: 15%;
+	float: left;
+	background-color: #DEDEDE;
+	background: url(../images/left-side.jpg) no-repeat;
+}
+
+#right-side {
+	background-color: #DEDEDE;
+	margin: 0 0 0 156px;
+	width: 733px;
+}
+
+#right-side,#left-side {
+	min-height: 600px;
+	padding: 10px;
+	height: 100%;
+}
+
+/* ===== TABLES ===== */
+#right-side table {
+	text-align: center;
+	margin: auto;
+	border-style: none;
+}
+
+#right-side table th {
+	background-color: #808080;
+	color: #F8F8DA;
+	color: #FFF;
+	height: 20px;
+	border-style: dotted;
+}
+
+#right-side table td {
+	background-color: #EEEEEE;
+	height: 40px;
+	min-width: 20px;
+	border-style: dotted;
+}
+
+/* === COMPONENTS === */
+.button {
+	width: 80px;
+}
+
+#mainFrm,#booksFrm,#authorsFrm,#publishersFrm {
+	text-align: center;
+}
+
+hr {
+	width: 100px;
+	color: #7B7B7B;
+}
+
+select,select option {
+	width: 120px;
+}
+
+.field {
+	width: 116px;
+}
+
+.field:hover,.field:focus {
+	border-width: 2px;
+	border-color: #00BFFF;
+}

@@ -1,44 +1,115 @@
+@CHARSET "UTF-8";
+
 body {
 	margin: auto;
 	width: 72%;
 	background-color: #EEEEEE;
-	/*background: url(../images/background.jpg) no-repeat;*/
+	/*
+		background: url(../images/background.jpg) no-repeat;
+	*/
 	background-attachment: fixed;
 	background-position: center;
 }
 
-#header, #header a {
+/* ===== HEADER ===== */
+#header,#header a {
 	background-color: #222222;
 	height: 60px;
 	width: 100%;
 	text-decoration: none;
-	color: #FFDEAD;	
+	color: #F8F8DA;
 }
 
 #logo-txt {
 	float: left;
 	font-weight: bold;
-	margin: 17px;	
+	margin: 17px;
 }
 
 #logo-img img {
-	width: 50px;	
+	width: 50px;
 	float: left;
 	margin: 5px;
 }
 
 #lang {
 	float: left;
-	padding-left: 50%;	
+	padding-left: 50%;
 	margin: 17px;
 }
 
+/* ====== MENU ====== */
 #menu {
 	background-color: grey;
 	width: 100%;
 	height: 50px;
+	text-align: left;
 }
 
+/* === MENU-ANIM ==== */
+#navigator {
+	float: left;
+	list-style: none;
+	font-weight: bold;
+	margin: 10px 0 0 -30px;
+}
+
+#navigator li {
+	float: left;
+	margin-right: 10px;
+	position: relative;
+	display: block;
+	text-align: center;
+	width: 120px;
+}
+
+#navigator li a {
+	display: block;
+	padding: 5px;
+	color: #FFF;
+	background: #333;
+	text-decoration: none;
+	border-radius: 5px;
+}
+
+#navigator li a:hover {
+	color: #00BFFF;
+	transition: color 2.0s linear;
+	background: #3A3A3A;
+}
+
+#navigator ul {
+	list-style: none;
+	position: absolute;
+	left: -9999px;
+	opacity: 0;
+	margin-left: -40px;
+}
+
+#navigator ul li {
+	padding-top: 1px;
+	float: none;
+}
+
+#navigator ul a {
+	white-space: nowrap;
+	display: block;
+}
+
+#navigator li:hover ul {
+	left: 0;
+	opacity: 1;
+}
+
+#navigator li:hover ul a {
+	text-decoration: none;
+}
+
+#navigator li:hover ul li a:hover {
+	background: #3a3a3a;
+}
+
+/* ===== CONTENT ==== */
 #content {
 	background-color: #DDDDDD;
 	width: 100%;
@@ -47,69 +118,35 @@ body {
 
 #foto {
 	float: left;
-    margin-left: -240px;
-    margin-right: 21px;
-    padding: 10px 10px 0;	
+	padding: 10px 15px 0 10px;
 }
 
-#bio {	
-    text-align: justify;
-    padding: 6px 20px 0 15px;	
+#bio {
+	text-align: justify;
+	padding: 6px 20px 0 15px;
 }
 
+/* ===== FOOTER ===== */
 #footer {
 	background-color: #222222;
 	height: 60px;
 }
 
-.contacts {
-	color: #FFDEAD;
-	font-weight: bold;
-	font-size: 12px;
-	width: 120px;	
-	text-align: center;
-}
-
-.contacts:hover, #header a:hover {
-	color: #00BFFF;
-	transition: color 2.1s linear;
-}
-
 #footer .contacts {
 	padding-left: 43%;
-	padding-top: 11px;	
+	padding-top: 11px;
 }
 
-#navigator {
-	float: left;
-	list-style-type: none;
-	padding-left: 10px;		
-}
-
-#navigator li {
-	float: left;	
-	margin-right: 10px;
-	margin-top: -7px;
-	text-align: center;	
-}
-
-#navigator li a:hover {
-	float: left;
-	color: #00BFFF;
-	transition: color 2.0s linear;	
-}
-
-#navigator li a {
-	display: block;	
-	/* color: #FFDEAD; */
-	color: #FFF; 
-	background: #333;
-	padding: 5px;
-	border-radius: 3px;
-	width: 100px;
+/* ==== CONTACTS ==== */
+.contacts {
 	font-weight: bold;
+	font-size: 12px;
+	width: 120px;
+	text-align: center;
+	color: #F8F8DA;
 }
 
-#navigator a {
-	text-decoration: none;
+.contacts:hover,#header a:hover,#logo-txt:hover {
+	color: #00BFFF;
+	transition: color 2.1s linear;
 }

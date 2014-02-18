@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+
+.fields, #selectOne {
+	width: 62px;
+}
+
+.fields:hover, .fields:focus {
+	border-width: 2px;
+	border-color: #00BFFF;
+}
+
+.submit {
+	float: right;
+	width: 100px;	
+}
+fieldset {
+	border-color: #00BFFF;
+}
+
+legend {
+	font-weight: bold;	
+}
