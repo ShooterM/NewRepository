@@ -1,9 +1,12 @@
 <?php
 
-include("dbLib.php");
-include("books.php");
+include("../../config/config.php");
+include("../../config/db_lib.php");
+include("f_lib.php");
 
 /**
+ * 
+ * Load content
  * @param string contentPath
  */ 
 function load_content($str) {
