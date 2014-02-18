@@ -18,7 +18,9 @@
 	<?php 
 		if(isset($_REQUEST['submitCountry'])) {
 			$country = $_POST['country'];
-			addCountry($country);
+			if(!empty($country)) {
+				addCountry($country);
+			}
 		}
 	?>
 	<fieldset>
@@ -36,7 +38,9 @@
 		if(isset($_REQUEST['submitEditor'])) {
 			$editor['name'] = $_POST['name'];
 			$editor['surname'] = $_POST['surname'];
-			addEditor($editor);
+			if (!empty($editor['name']) &&  !empty($editor['surname'])) {
+				addEditor($editor);
+			}
 		}
 	?>
 	<fieldset>
@@ -52,7 +56,9 @@
 	<?php 
 		if(isset($_REQUEST['submitGenre'])) {
 			$genre = $_POST['genre'];
-			addGenre($genre);
+			if (!empty($genre)) {				
+				addGenre($genre);
+			}
 		}
 	?>
 	<fieldset>
@@ -72,13 +78,15 @@
 	</form>
 	</fieldset>
 	<?php 
-		if(isset($_REQUEST['submitAddress'])) {					
-			$address['country_id'] = intval($_POST['country_id']);			
-			$address['city'] = $_POST['city'];
-			$address['street'] = $_POST['street'];
-			$address['house'] = $_POST['house'];
-			$address['index'] = $_POST['index'];
-			addAddress($address);			
+		if(isset($_REQUEST['submitAddress'])) {		
+			if (!empty($_POST['city']) && !empty($_POST['street']) && !empty($_POST['house']) && !empty($_POST['index'])) {			
+				$address['country_id'] = intval($_POST['country_id']);			
+				$address['city'] = $_POST['city'];
+				$address['street'] = $_POST['street'];
+				$address['house'] = $_POST['house'];
+				$address['index'] = $_POST['index'];
+				addAddress($address);
+			}			
 		}
 	?>
 </body>
