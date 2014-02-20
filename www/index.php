@@ -42,11 +42,20 @@ function load_content($str) {
 				<a href='dbtask/index.php?pageId=1'>Database</a>
 				<ul>
 					<li>
-						<a href='dbtask/index.php?pageId=1'>Small tables</a>
+						<a href='dbtask/index.php?pageContent=Authors'>Authors</a>
 					</li>
 					<li>
-						<a href='dbtask/index.php?pageId=2'>Search</a>
+						<a href='dbtask/index.php?pageContent=Books'>Books</a>
 					</li>
+					<li>
+						<a href='dbtask/index.php?pageContent=Publishers'>Publishers</a>
+					</li>
+					<li>
+						<a href='dbtask/index.php?pageContent=all'>Small tables</a>
+					</li>
+					<li>
+						<a href='dbtask/index.php?pageContent=search'>Search</a>
+					</li>					
 				</ul>
 			</li>
 			<li>

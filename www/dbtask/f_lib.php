@@ -53,7 +53,7 @@ function showAuthors($order = NULL) {
 
 function showPublishers($order = NULL) {
 	$con = getConnector();
-	$sqlQuery = "SELECT `p`.`id`, `p`.`pub_name`, CONCAT_WS(', ',c.country, a.city,a.home,a.post_index) AS 'address', CONCAT_WS(' ',e.name,e.surname) AS `editor` FROM `publishers` `p` JOIN `editors` `e`, `addresses` `a`, `countries` `c` WHERE  `e`.`id`=`p`.`editor_id` AND `a`.`id`=`p`.`address` AND `c`.`id`=`a`.`country_id`".$order;
+	$sqlQuery = "SELECT `p`.`id`, `p`.`pub_name`, CONCAT_WS(', ',c.country, a.city,a.home,a.post_index) AS 'address', CONCAT_WS(' ',e.name,e.surname) AS `editor` FROM `publishers` `p` JOIN `editors` `e`, `addresses` `a`, `countries` `c` WHERE  `e`.`id`=`p`.`editor_id` AND `a`.`id`=`p`.`address_id` AND `c`.`id`=`a`.`country_id`".$order;
 	$result = getQueryResult($con, $sqlQuery);
 	print("<table border=1><tr><th>Id</th><th>Publisher</th><th>Address</th><th>Editor</th></tr>");
 	while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
@@ -128,9 +128,8 @@ function addAuthor($author) {
 
 function addPublisher($publisher) {
 	$con = getConnector();
-	$sqlQuery = "INSERT INTO `publishers`(`pub_name`,`address`,`editor_id`) 
+	$sqlQuery = "INSERT INTO `publishers`(`pub_name`,`address_id`,`editor_id`) 
 				VALUES('".$publisher['pub_name']."', ".intval($publisher['address_id']).", ".intval($publisher['editor_id']).")";
-	print($sqlQuery);
 	getQueryResult($con, $sqlQuery);
 	mysql_close($con);
 }
@@ -277,7 +276,7 @@ function getCountries() {
 
 function getAddresses() {
 	$con = getConnector();
-	$sqlQuery = "SELECT `a`.`id`, CONCAT_WS(', ',c.country, a.city,a.home,a.post_index) AS 'address' FROM `addresses` `a` JOIN `countries` `c` WHERE  `c`.`id`=`a`.`country_id`";;
+	$sqlQuery = "SELECT `a`.`id`, CONCAT_WS(', ',c.country, a.city,a.home,a.post_index) AS 'address' FROM `addresses` `a` JOIN `countries` `c` WHERE  `c`.`id`=`a`.`country_id`";
 	$result = getQueryResult($con, $sqlQuery);
 	while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 		print("<option value=".$row['id'].">".$row['address']."</option>");
