@@ -101,6 +101,14 @@ class Address extends Database implements IDatabaseFunction {
 		closeConnection($result, $con);
 	}
 
+	public function insert() {
+		$con = getConnector();
+		$sqlQuery = "INSERT INTO `addresses`(`country_id`, `city`, `street`, `home`, `post_index`)
+				VALUES (".intval($this->country_id).", '".$this->city."', '".$this->street."', '".$this->house."', '".$this->index."')";
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
 	public function insert($value) {
 		$con = getConnector();
 		$sqlQuery = "INSERT INTO `addresses`(`country_id`, `city`, `street`, `home`, `post_index`)
@@ -109,16 +117,30 @@ class Address extends Database implements IDatabaseFunction {
 		mysql_close($con);
 	}
 
-	public function update($id, $value) {
+	public function update() {
 		$con = getConnector();
-		$sqlQuery = "UPDATE `addresses` SET `country_id`=".intval($value['country_id']).",`city`='".$value['city']."',`street`='".$value['street']."',`home`='".$value['house']."',`post_index`='".$value['index']."' WHERE `id`=".intval($id);
+		$sqlQuery = "UPDATE `addresses` SET `country_id`=".intval($this->country_id).",`city`='".$this->city."',`street`='".$this->street."',`home`='".$this->house."',`post_index`='".$this->index."' WHERE `id`=".intval($this->id);
 		getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function delete($id) {
+	public function update($ind, $value) {
 		$con = getConnector();
-		$sqlQuery = "DELETE FROM `addresses` WHERE `id`=".intval($id);
+		$sqlQuery = "UPDATE `addresses` SET `country_id`=".intval($value['country_id']).",`city`='".$value['city']."',`street`='".$value['street']."',`home`='".$value['house']."',`post_index`='".$value['index']."' WHERE `id`=".intval($ind);
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
+	public function delete() {
+		$con = getConnector();
+		$sqlQuery = "DELETE FROM `addresses` WHERE `id`=".intval($this->id);
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
+	public function delete($ind) {
+		$con = getConnector();
+		$sqlQuery = "DELETE FROM `addresses` WHERE `id`=".intval($ind);
 		getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}

@@ -39,7 +39,7 @@ function load_content($str) {
 				<a href='#'>Home</a>
 			</li>
 			<li>
-				<a href='dbtask/index.php?pageId=1'>Database</a>
+				<a href='dbtask/index.php?pageContent=Select'>Database</a>
 				<ul>
 					<li>
 						<a href='dbtask/index.php?pageContent=Authors'>Authors</a>
@@ -55,6 +55,26 @@ function load_content($str) {
 					</li>
 					<li>
 						<a href='dbtask/index.php?pageContent=search'>Search</a>
+					</li>					
+				</ul>				
+			</li>
+			<li>
+				<a href='ooptask/index.php?page=Select'>OOP</a>
+				<ul>
+					<li>
+						<a href='ooptask/index.php?page=Authors'>Authors</a>
+					</li>
+					<li>
+						<a href='ooptask/index.php?page=Books'>Books</a>
+					</li>
+					<li>
+						<a href='ooptask/index.php?page=Publishers'>Publishers</a>
+					</li>
+					<li>
+						<a href='ooptask/index.php?page=All'>Small tables</a>
+					</li>
+					<li>
+						<a href='ooptask/index.php?page=Search'>Search</a>
 					</li>					
 				</ul>
 			</li>

@@ -147,6 +147,13 @@ class Book extends Database implements IDatabaseFunction {
 		closeConnection($result, $con);
 	}
 
+	public function insert() {
+		$con = getConnector();
+		$sqlQuery = "INSERT INTO `books`(`author_id`,`title`,`year`,`publisher_id`,`page_count`,`receipt_date`,`genre_id`) VALUES(".intval($this->author_id).", '".$this->title."', ".intval($this->year).", ".intval($this->publisher_id).", ".intval($this->page_count).", '".$this->date."' ,".intval($this->genre_id).")";
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
 	public function insert($value) {
 		$con = getConnector();
 		$sqlQuery = "INSERT INTO `books`(`author_id`,`title`,`year`,`publisher_id`,`page_count`,`receipt_date`,`genre_id`) VALUES(".intval($value['author_id']).", '".$value['title']."', ".intval($value['year']).", ".intval($value['publisher_id']).", ".intval($value['page_count']).", '".$value['date']."' ,".intval($value['genre_id']).")";
@@ -154,16 +161,30 @@ class Book extends Database implements IDatabaseFunction {
 		mysql_close($con);
 	}
 
-	public function update($id, $value) {
+	public function update() {
 		$con = getConnector();
-		$sqlQuery = "UPDATE `books` SET `author_id`=".intval($value['author_id']).",`title`='".$value['title']."',`year`=".intval($value['year']).",`publisher_id`=".intval($value['publisher_id']).",`page_count`=".intval($value['page_count']).",`receipt_date`='".$value['receipt_date']."',`genre_id`=".intval($value['genre_id'])." WHERE `id`=".intval($id);
+		$sqlQuery = "UPDATE `books` SET `author_id`=".intval($this->author_id).",`title`='".$this->title."',`year`=".intval($this->year).",`publisher_id`=".intval($this->publisher_id).",`page_count`=".intval($this->page_count).",`receipt_date`='".$this->receipt_date."',`genre_id`=".intval($this->genre_id)." WHERE `id`=".intval($this->id);
 		getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function delete($id) {
+	public function update($index, $value) {
 		$con = getConnector();
-		$sqlQuery = "DELETE FROM `books` WHERE `id`=".intval($id);
+		$sqlQuery = "UPDATE `books` SET `author_id`=".intval($value['author_id']).",`title`='".$value['title']."',`year`=".intval($value['year']).",`publisher_id`=".intval($value['publisher_id']).",`page_count`=".intval($value['page_count']).",`receipt_date`='".$value['receipt_date']."',`genre_id`=".intval($value['genre_id'])." WHERE `id`=".intval($index);
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
+	public function delete() {
+		$con = getConnector();
+		$sqlQuery = "DELETE FROM `books` WHERE `id`=".intval($this->id);
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
+	public function delete($index) {
+		$con = getConnector();
+		$sqlQuery = "DELETE FROM `books` WHERE `id`=".intval($index);
 		getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}

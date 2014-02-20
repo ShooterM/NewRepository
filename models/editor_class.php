@@ -71,6 +71,12 @@ class Editor extends Database implements IDatabaseFunction {
 		closeConnection($result, $con);
 	}
 
+	public function insert() {
+		$con = getConnector();
+		$sqlQuery = "INSERT INTO `editors`(`name`,`surname`) VALUES('".$this->name."', '".$this->surname."')";
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
 
 	public function insert($value) {
 		$con = getConnector();
@@ -79,18 +85,30 @@ class Editor extends Database implements IDatabaseFunction {
 		mysql_close($con);
 	}
 
-
-	public function update($id, $value) {
+	public function update() {
 		$con = getConnector();
-		$sqlQuery = "UPDATE `editors` SET `name`='".$value['name']."' ,`surname`='".$value['surname']."' WHERE `id`=".inval($id);
+		$sqlQuery = "UPDATE `editors` SET `name`='".$this->name."' ,`surname`='".$this->surname."' WHERE `id`=".inval($this->id);
 		getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-
-	public function delete($id) {
+	public function update($index, $value) {
 		$con = getConnector();
-		$sqlQuery = "DELETE FROM `editors` WHERE `id`=".intval($id);
+		$sqlQuery = "UPDATE `editors` SET `name`='".$value['name']."' ,`surname`='".$value['surname']."' WHERE `id`=".inval($index);
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
+	public function delete() {
+		$con = getConnector();
+		$sqlQuery = "DELETE FROM `editors` WHERE `id`=".intval($this->id);
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
+	public function delete($index) {
+		$con = getConnector();
+		$sqlQuery = "DELETE FROM `editors` WHERE `id`=".intval($index);
 		getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}

@@ -118,6 +118,15 @@ class Author extends Database implements IDatabaseFunction {
 		closeConnection($result, $con);
 	}
 
+
+	public function insert() {
+		$con = getConnector();
+		$sqlQuery = "INSERT INTO `authors`(`name`,`surname`,`birth_date`,`death_date`,`country_id`)
+				VALUES('".$this->name."', '".$this->surname."', '".$this->birth_date."', '".$this->death_date."', ".intval($this->country_id).")";
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
 	public function insert($value) {
 		$con = getConnector();
 		$sqlQuery = "INSERT INTO `authors`(`name`,`surname`,`birth_date`,`death_date`,`country_id`)
@@ -126,16 +135,30 @@ class Author extends Database implements IDatabaseFunction {
 		mysql_close($con);
 	}
 
-	public function update($id, $value) {
+	public function update() {
 		$con = getConnector();
-		$sqlQuery = "UPDATE `authors` SET `name`='".$value['name']."',`surname`='".$value['surname']."',`birth_date`='".$value['birth_date']."',`death_date`='".$value['death_date']."',`country_id`=".intval($value['country_id'])." WHERE `id`=".intval($id);
+		$sqlQuery = "UPDATE `authors` SET `name`='".$this->name."',`surname`='".$this->surname."',`birth_date`='".$this->birth_date."',`death_date`='".$this->death_date."',`country_id`=".intval($this->country_id)." WHERE `id`=".intval($this->id);
 		getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function delete($id) {
+	public function update($index, $value) {
 		$con = getConnector();
-		$sqlQuery = "DELETE FROM `authors` WHERE `id`=".intval($id);
+		$sqlQuery = "UPDATE `authors` SET `name`='".$value['name']."',`surname`='".$value['surname']."',`birth_date`='".$value['birth_date']."',`death_date`='".$value['death_date']."',`country_id`=".intval($value['country_id'])." WHERE `id`=".intval($index);
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
+	public function delete() {
+		$con = getConnector();
+		$sqlQuery = "DELETE FROM `authors` WHERE `id`=".intval($this->id);
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
+	public function delete($index) {
+		$con = getConnector();
+		$sqlQuery = "DELETE FROM `authors` WHERE `id`=".intval($index);
 		getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}

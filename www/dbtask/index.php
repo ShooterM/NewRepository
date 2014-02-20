@@ -58,7 +58,7 @@ function load_content($contentPath) {
 				<a href='../'>Home</a>
 			</li>
 			<li>
-				<a href=''>Database</a>
+				<a href='?pageContent=Select'>Database</a>
 				<ul>
 					<li>
 						<a href='?pageContent=Authors'>Authors</a>
@@ -74,6 +74,26 @@ function load_content($contentPath) {
 					</li>
 					<li>
 						<a href='?pageContent=search'>Search</a>
+					</li>					
+				</ul>
+			</li>
+			<li>
+				<a href='../ooptask/index.php?page=Select'>OOP</a>
+				<ul>
+					<li>
+						<a href='../ooptask/index.php?page=Authors'>Authors</a>
+					</li>
+					<li>
+						<a href='../ooptask/index.php?page=Books'>Books</a>
+					</li>
+					<li>
+						<a href='../ooptask/index.php?page=Publishers'>Publishers</a>
+					</li>
+					<li>
+						<a href='../ooptask/index.php?page=All'>Small tables</a>
+					</li>
+					<li>
+						<a href='../ooptask/index.php?page=Search'>Search</a>
 					</li>					
 				</ul>
 			</li>

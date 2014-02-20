@@ -89,6 +89,14 @@ class Publisher extends Database implements IDatabaseFunction {
 		closeConnection($result, $con);
 	}
 
+	public function insert() {
+		$con = getConnector();
+		$sqlQuery = "INSERT INTO `publishers`(`pub_name`,`address_id`,`editor_id`)
+				VALUES('".$value['pub_name']."', ".intval($this->address_id).", ".intval($this->editor_id).")";		
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
 	public function insert($value) {
 		$con = getConnector();
 		$sqlQuery = "INSERT INTO `publishers`(`pub_name`,`address_id`,`editor_id`)
@@ -97,16 +105,30 @@ class Publisher extends Database implements IDatabaseFunction {
 		mysql_close($con);
 	}
 
-	public function update($id, $value) {
+	public function update() {
 		$con = getConnector();
-		$sqlQuery = "UPDATE `publishers` SET `pub_name`='".$value['pub_name']."',`address_id`=".$value['address_id'].",`editor_id`=".$value['editor_id']." WHERE `id`=".intval($id);
+		$sqlQuery = "UPDATE `publishers` SET `pub_name`='".$this->pub_name."',`address_id`=".$this->address_id.",`editor_id`=".$this->editor_id." WHERE `id`=".intval($this->id);
 		getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function delete($id) {
+	public function update($index, $value) {
 		$con = getConnector();
-		$sqlQuery = "DELETE FROM `publishers` WHERE `id`=".intval($id);
+		$sqlQuery = "UPDATE `publishers` SET `pub_name`='".$value['pub_name']."',`address_id`=".$value['address_id'].",`editor_id`=".$value['editor_id']." WHERE `id`=".intval($index);
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
+	public function delete() {
+		$con = getConnector();
+		$sqlQuery = "DELETE FROM `publishers` WHERE `id`=".intval($this->id);
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
+	public function delete($index) {
+		$con = getConnector();
+		$sqlQuery = "DELETE FROM `publishers` WHERE `id`=".intval($index);
 		getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}

@@ -54,21 +54,42 @@ class Genre extends Database implements IDatabaseFunction {
 
 	public function insert($value) {
 		$con = getConnector();
+		$sqlQuery = "INSERT INTO `genres`(`genre`) VALUES('".$this->genre."')";
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
+	public function insert($value) {
+		$con = getConnector();
 		$sqlQuery = "INSERT INTO `genres`(`genre`) VALUES('".$value."')";
 		getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function update($id, $value) {
+	public function update() {
 		$con = getConnector();
-		$sqlQuery = "UPDATE `genres` SET `genre`='".$value."' WHERE `id`=".intval($id);
+		$sqlQuery = "UPDATE `genres` SET `genre`='".$this->genre."' WHERE `id`=".intval($this->id);
 		getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function delete($id) {
+	public function update($index, $value) {
 		$con = getConnector();
-		$sqlQuery = "DELETE FROM `genres` WHERE `id`=".intval($id);
+		$sqlQuery = "UPDATE `genres` SET `genre`='".$value."' WHERE `id`=".intval($index);
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
+	public function delete() {
+		$con = getConnector();
+		$sqlQuery = "DELETE FROM `genres` WHERE `id`=".intval($this->id);
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
+	public function delete($index) {
+		$con = getConnector();
+		$sqlQuery = "DELETE FROM `genres` WHERE `id`=".intval($index);
 		getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}

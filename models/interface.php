@@ -15,6 +15,12 @@ interface  IDatabaseFunction {
 
 	/**
 	 *
+	 * Insert object into table
+	 */
+	public function insert();
+
+	/**
+	 *
 	 * Insert into table
 	 * @param assoc_array $value
 	 */
@@ -22,18 +28,31 @@ interface  IDatabaseFunction {
 
 	/**
 	 *
+	 * Update record by
+	 */
+	public function update();
+
+	/**
+	 *
 	 * Update record by id
 	 * @param int $id
 	 * @param assoc_array $value
 	 */
-	public function update($id, $value);
+	public function update($index, $value);
+
+
+	/**
+	 *
+	 * Delete current object from table
+	 */
+	public function delete();
 
 	/**
 	 *
 	 * Delete rows from table by id
 	 * @param int $id
 	 */
-	public function delete($id);
+	public function delete($index);
 
 	/**
 	 *

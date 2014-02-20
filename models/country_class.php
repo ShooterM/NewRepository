@@ -52,6 +52,13 @@ class Country extends Database implements IDatabaseFunction {
 		closeConnection($result, $con);
 	}
 
+	public function insert() {
+		$con = getConnector();
+		$sqlQuery = "INSERT INTO `countries`(`country`) VALUES('".$this->country."')";
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
 	public function insert($value) {
 		$con = getConnector();
 		$sqlQuery = "INSERT INTO `countries`(`country`) VALUES('".$value."')";
@@ -59,16 +66,30 @@ class Country extends Database implements IDatabaseFunction {
 		mysql_close($con);
 	}
 
-	public function update($id, $value) {
+	public function update() {
 		$con = getConnector();
-		$sqlQuery = "UPDATE `countries` SET `country`='".$value."' WHERE `id`=".intval($id);
+		$sqlQuery = "UPDATE `countries` SET `country`='".$this->country."' WHERE `id`=".intval($this->id);
 		getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function delete($id) {
+	public function update($index, $value) {
 		$con = getConnector();
-		$sqlQuery = "DELETE FROM `countries` WHERE `id`=".intval($id);
+		$sqlQuery = "UPDATE `countries` SET `country`='".$value."' WHERE `id`=".intval($index);
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
+	public function delete() {
+		$con = getConnector();
+		$sqlQuery = "DELETE FROM `countries` WHERE `id`=".intval($this->id);
+		getQueryResult($con, $sqlQuery);
+		mysql_close($con);
+	}
+
+	public function delete($index) {
+		$con = getConnector();
+		$sqlQuery = "DELETE FROM `countries` WHERE `id`=".intval($index);
 		getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
