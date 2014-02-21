@@ -21,8 +21,8 @@
 		<input type='text' class='field'  id='datepicker1' name='death_date' />
 		Country
 		<br />
-			<?php									
-				//Country::getList();				 
+			<?php			
+				Country::getList();				 
 			?>
 		<input type='submit' name='submitAuthor' class='button' value='Insert' />
 		<hr />
@@ -43,27 +43,21 @@
 						break;
 					}
 				}				
-				if ($_POST['death_date'] === "") {
+				if($_POST['death_date'] === "") {
 					$author['death_date'] = NULL;
 				} else {
 					$author['death_date'] = Support::getCorrectDate($_POST['death_date']);
-				}				
-				if(!Support::isName($author['name']) || !Support::isName($author['surname']) || !Support::isDigit($author['country_id'])) {
-					$flag = false;				
-				}				
-				if($flag) {					
-					$obj = new Author();
+				}	
+				$obj = new Author();			
+				if($flag && Support::isName($author['name']) || Support::isName($author['surname']) || Support::isDigit($author['country_id'])) {
 					$obj->insert($author);
-				}
-				
-			}						
-			
+				}				
+			}
 			// Delete author
 			if(isset($_REQUEST['deleteAuthor'])) {
 				$id = $_POST['author_id'];
 				if(!empty($id) && Support::isDigit($id)) {
-					$obj = new Author();
-					$obj->delete($id);
+					$obj->deleteById($id);
 				}
 			}
 		?>

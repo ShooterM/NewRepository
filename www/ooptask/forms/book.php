@@ -8,9 +8,7 @@
 	<form name='addBook' id='booksFrm' method="post">
 		Name
 		<br />
-		<select name='author_id'>
-			<?php getAuthors(); ?>
-		</select>
+			<?php Author::getList(); ?>
 		Title
 		<br />
 		<input type='text' class='field' name='title' />
@@ -18,10 +16,8 @@
 		<br />
 		<input type='text' class='field' name='year' />
 		Publisher
-		<br />
-		<select name='publisher_id'>
-			<?php getPublishers(); ?>
-		</select>
+		<br />		
+			<?php Publisher::getList(); ?>		
 		Page count
 		<br />
 		<input type='text' class='field' name='page_count' />
@@ -30,14 +26,12 @@
 		<input type='text' class='field' id='datepicker' name='date' />
 		Genre
 		<br />
-		<select name='genre_id'>
-			<?php getGenres(); ?>
-		</select>
+			<?php Genre::getList(); ?>
 		<input type='submit' name='submitBook' class='button' value='Insert' />
 		<hr />
 		<input type='text' class='field' name='book_id' />
 		<input type='submit' name='deleteBook' class='button' value='Delete' />
-	</form> 
+	</form>
 	<?php 
 		if(isset($_REQUEST['submitBook'])) {
 			$book['author_id'] = $_POST['author_id'];
@@ -45,7 +39,7 @@
 			$book['year'] = $_POST['year'];
 			$book['publisher_id'] = $_POST['publisher_id'];
 			$book['page_count'] = $_POST['page_count'];
-			$book['date'] = getCorrectDate($_POST['date']);					
+			$book['receipt_date'] = Support::getCorrectDate($_POST['date']);					
 			$book['genre_id'] = $_POST['genre_id'];
 			$flag = true;
 			foreach ($book as $value) {
@@ -54,14 +48,15 @@
 					break;
 				}
 			}
-			if($flag) {					
-				addBook($book);
+			$obj = new Book();
+			if($flag && Support::isDigit($book['year']) && Support::isName($book['title']) && Support::isDigit($book['publisher_id'])&& Support::isDigit($book['genre_id']) && Support::isDigit($book['author_id']) && Support::isYear($book['year'])) {					
+				$obj->insertValue($book);
 			}
 		}
 		if(isset($_REQUEST['deleteBook'])) {
 			$id = $_POST['book_id'];
-			if(!empty($id)) {
-				removeBook($id);
+			if(!empty($id) && Support::isDigit($id)) {
+				$obj->deleteById($id);
 			}
 		}
 	?>

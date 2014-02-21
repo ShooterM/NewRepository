@@ -146,12 +146,10 @@ function load_content($contentPath) {
 				
 				if ($_GET['pageContent'] === "Authors") {
 					print("<h3>".$_GET['pageContent']."</h3>");
-					//print("<h3>".$_POST['tableSelector']."</h3>");
 					showAuthors($order);					
 				} else {
 					if ($_GET['pageContent'] === "Publishers") {
-						print("<h3>".$_GET['pageContent']."</h3>");
-						//print("<h3>".$_POST['tableSelector']."</h3>");									
+						print("<h3>".$_GET['pageContent']."</h3>");							
 						showPublishers($order);
 					} else {					
 						if ($_GET['pageContent'] === "Books") {

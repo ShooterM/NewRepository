@@ -33,10 +33,7 @@
 				$author['name'] = $_POST['name'];
 				$author['surname'] = $_POST['surname'];
 				$author['birth_date'] = getCorrectDate($_POST['birth_date']);					
-				$author['country_id'] = $_POST['country_id'];
-				
-				print($author['birth_date']);
-				
+				$author['country_id'] = $_POST['country_id'];				
 				$flag = true;
 				foreach ($author as $value) {					
 					if (empty($value)) {

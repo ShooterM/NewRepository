@@ -1,4 +1,6 @@
 <?php
+include_once("db_class.php");
+include_once("interface.php");
 /**
  *
  * Class 'Editor'
@@ -13,130 +15,125 @@ class Editor extends Database implements IDatabaseFunction {
 	const UNKNOWN_STR = "Unknown";
 
 	function __construct() {
-		$name = UNKNOWN_STR;
-		$surname = UNKNOWN_STR;
+		$this->name = UNKNOWN_STR;
+		$this->surname = UNKNOWN_STR;
 	}
 
-	function __construct($full_name) {
-		$parts = explode(" ", $full_name);
-		$name = $parts[0];
-		$surname = $parts[1];
+	function write($full_name) {
+		$this->parts = explode(" ", $full_name);
+		$this->name = $parts[0];
+		$this->surname = $parts[1];
 	}
 
-	function __construct($index, $full_name) {
-		$id = $index;
-		$parts = explode(" ", $full_name);
-		$name = $parts[0];
-		$surname = $parts[1];
-	}
-
-	function __construct($index, $vName, $vSurname) {
-		$id = $index;
-		$name = $vName;
-		$surname = $vSurname;
+	function writeForId($index, $full_name) {
+		$this->id = $index;
+		$this->parts = explode(" ", $full_name);
+		$this->name = $parts[0];
+		$this->surname = $parts[1];
 	}
 
 	public function getId() {
-		return $id;
+		return $this->id;
 	}
 
 	public function setId($value) {
-		$id = $value;
+		$this->id = $value;
 	}
 	public function getName() {
-		return $name;
+		return $this->name;
 	}
 
 	public function setName($value) {
-		$name = $value;
+		$this->name = $value;
 	}
 
 	public function getSurname() {
-		return $surname;
+		return $this->surname;
 	}
 
 	public function setSurname($value) {
-		$surname = $value;
+		$this->surname = $value;
 	}
 
 	public function select($order = null) {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "SELECT `id`, `name`, `surname` FROM `editors`".$order;
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $this->getQueryResult($con, $sqlQuery);
 		print("<table border=1><tr><th>Id</th><th>Name</th><th>Surname</th></tr>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print(Support::rowsGen($row));
 		}
 		print("</table>");
-		closeConnection($result, $con);
+		$this->closeConnection($result, $con);
 	}
 
 	public function insert() {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "INSERT INTO `editors`(`name`,`surname`) VALUES('".$this->name."', '".$this->surname."')";
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function insert($value) {
-		$con = getConnector();
+	public function insertValue($value) {
+		$con = $this->getConnector();
 		$sqlQuery = "INSERT INTO `editors`(`name`,`surname`) VALUES('".$value['name']."', '".$value['surname']."')";
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
 	public function update() {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "UPDATE `editors` SET `name`='".$this->name."' ,`surname`='".$this->surname."' WHERE `id`=".inval($this->id);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function update($index, $value) {
-		$con = getConnector();
+	public function updateValue($index, $value) {
+		$con = $this->getConnector();
 		$sqlQuery = "UPDATE `editors` SET `name`='".$value['name']."' ,`surname`='".$value['surname']."' WHERE `id`=".inval($index);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
 	public function delete() {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "DELETE FROM `editors` WHERE `id`=".intval($this->id);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function delete($index) {
-		$con = getConnector();
+	public function deleteById($index) {
+		$con = $this->getConnector();
 		$sqlQuery = "DELETE FROM `editors` WHERE `id`=".intval($index);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
 
 	public function search($part_of_word) {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "SELECT `id`, CONCAT_WS(' ', `name`, `surname`) AS `editor` FROM `editors` WHERE CONCAT_WS(' ', `name`, `surname`) LIKE '%".$part_of_word."%'";
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $this->getQueryResult($con, $sqlQuery);
 		print("<table border=1><tr><th>Id</th><th>Name</th><th>Surname</th></tr>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print(Support::rowsGen($row));
 		}
 		print("</table>");
-		closeConnection($result, $con);
+		$this->closeConnection($result, $con);
 	}
 
 
 	public static function getList() {
-		$con = getConnector();
+		$db = new Database();
+		$con = $db->getConnector();
 		$sqlQuery = "SELECT `id`, CONCAT_WS(' ',name,surname) AS `editor`  FROM `editors`";
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $db->getQueryResult($con, $sqlQuery);
 		print("<select name='editors'>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print("<option value=".$row['id'].">".$row['editor']."</option>");
 		}
 		print("</select>");
-		closeConnection($result, $con);
+		$db->closeConnection($result, $con);
 	}
 }
 ?>

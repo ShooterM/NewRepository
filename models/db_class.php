@@ -11,7 +11,7 @@ class Database {
 	 * Open connection
 	 */
 	public function getConnector() {
-		require("../config.php");
+		require("../../config/config.php");
 		$connection = mysql_connect($hostName,$userName,$password);
 		mysql_select_db($dbName,$connection);
 		return $connection;
@@ -24,7 +24,7 @@ class Database {
 	 * @param string $user
 	 * @param string $pass
 	 */
-	public function getConnector($host, $user, $pass) {
+	public function getConnectorByPar($host, $user, $pass) {
 		return mysql_connect($host,$user,$pass);		
 	}
 	

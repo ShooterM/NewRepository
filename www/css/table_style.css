@@ -73,3 +73,14 @@ select,select option {
 	border-width: 2px;
 	border-color: #00BFFF;
 }
+
+.show-link,.hide-link,.show-link:visited,.hide-link:visited {
+	text-decoration: none;
+	color: #4b4b4b;
+	font-weight: bold;
+}
+
+.show-link:hover,.hide-link:hover {
+	color: green;
+	transition: color 1.5s linear;
+}

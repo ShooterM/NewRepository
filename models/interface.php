@@ -24,7 +24,7 @@ interface  IDatabaseFunction {
 	 * Insert into table
 	 * @param assoc_array $value
 	 */
-	public function insert($value);
+	public function insertValue($value);
 
 	/**
 	 *
@@ -38,7 +38,7 @@ interface  IDatabaseFunction {
 	 * @param int $id
 	 * @param assoc_array $value
 	 */
-	public function update($index, $value);
+	public function updateValue($index, $value);
 
 
 	/**
@@ -52,7 +52,7 @@ interface  IDatabaseFunction {
 	 * Delete rows from table by id
 	 * @param int $id
 	 */
-	public function delete($index);
+	public function deleteById($index);
 
 	/**
 	 *

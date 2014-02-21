@@ -1,17 +1,16 @@
 <?php
 
- // ÎÑÜ ÒÓÒ Ï²ÄÊËÞ×ÀÞ
- include("../../models/country_class.php");
- 
- /*
- include("../../models/author_class.php");
- include("../../models/editor_class.php");
- include("../../models/genre_class.php");
- include("../../models/publisher_class.php");
- include("../../models/book_class.php");
- include("../../models/address_class.php");
- include("../../models/support_class.php");
- */
+include("../../models/country_class.php");
+include("../../models/author_class.php");
+include("../../models/editor_class.php");
+include("../../models/genre_class.php");
+include("../../models/publisher_class.php");
+include("../../models/book_class.php");
+include("../../models/address_class.php");
+include("../../models/support_class.php");
+include_once("../../models/db_class.php");
+include_once("../../models/interface.php");
+
  
 ?>
 
@@ -121,16 +120,60 @@
 			</div>
 			<hr />
 			<?php
-				if(isset($_REQUEST['page']) && $_GET['page'] === "Authors") {									
-/* ÒÓÒ ÂÈÊËÈÊÀÞ ÔÎÐÌÓ */					include("forms/author.php");
+				if (isset($_GET['order']) && !empty($_GET['order']) && Support::isDigit($_GET['order'])) {					
+					$order = " ORDER BY ".$_GET['order'];	
 				} else {
-					
-				}
+					$order = "";
+				}			
+				if(isset($_REQUEST['page'])) {
+					switch ($_GET['page']) {
+						case "Authors": {									
+							include("forms/author.php");
+							break;
+						}
+						case "Books" : {									
+							include("forms/book.php");
+							break;
+						}
+						case "Publishers" : {									
+							include("forms/publisher.php");
+							break;
+						}	
+							default: break;							
+						}
+					}
 			?>
 		</div>
 		<div id='right-side'>
-			<?php			
-				// right block
+			<?php		
+				if(isset($_REQUEST['page'])) {
+					switch ($_GET['page']) {
+						case "Authors": {									
+							$author = new Author();
+							$author->select($order);
+							break;
+						}
+						case "Books" : {									
+							$book = new Book();
+							$book->select($order);
+							break;
+						}
+						case "Publishers" : {									
+							$publisher = new Publisher();
+							$publisher->select($order);
+							break;
+						}	
+						case "All" : {									
+								include("forms/tables.php");
+								break;
+						}
+						case "Search" : {									
+							include("forms/search.php");
+							break;
+						}	
+						default: break;							
+						}
+					}
 			?>
 		</div>
 	</div>

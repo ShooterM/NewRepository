@@ -1,4 +1,6 @@
 <?php
+include_once("db_class.php");
+include_once("interface.php");
 /**
  *
  * Class 'Author'
@@ -18,173 +20,158 @@ class Author extends Database implements IDatabaseFunction {
 	const UNKNOWN_INT = 0;
 
 	function __construct() {		
-		$name = UNKNOWN_STR;
-		$surname = UNKNOWN_STR;
-		$birth_date = UNKNOWN_DAT;
-		$death_date = UNKNOWN_DAT;
-		$country_id = UNKNOWN_INT;
+		$this->name = UNKNOWN_STR;
+		$this->surname = UNKNOWN_STR;
+		$this->birth_date = UNKNOWN_DAT;
+		$this->death_date = UNKNOWN_DAT;
+		$this->country_id = UNKNOWN_INT;
 	}
 
-	function __construct($args) {
-		$name = $args['name'];
-		$surname = $args['surname'];
-		$birth_date = $args['birth_date'];
-		$death_date = $args['death_date'];
-		$country_id = $args['country_id'];
+	function writeArray($args) {
+		$this->name = $args['name'];
+		$this->surname = $args['surname'];
+		$this->birth_date = $args['birth_date'];
+		$this->death_date = $args['death_date'];
+		$this->country_id = $args['country_id'];
 	}
 
-	function __construct($index, $args) {
-		$id = $index;
-		$name = $args['name'];
-		$surname = $args['surname'];
-		$birth_date = $args['birth_date'];
-		$death_date = $args['death_date'];
-		$country_id = $args['country_id'];
-	}
-
-	function __construct($aName, $aSurname, $aBirth_date, $aDeath_date, $countryId) {
-		$name = $aName;
-		$surname = $aSurname;
-		$birth_date = $aBirth_date;
-		$death_date = $aDeath_date;
-		$country_id = $countryId;
-	}
-
-	function __construct($index, $aName, $aSurname, $aBirth_date, $aDeath_date, $countryId) {
-		$id = $index;
-		$surname = $aSurname;
-		$birth_date = $aBirth_date;
-		$death_date = $aDeath_date;
-		$country_id = $countryId;
+	function writeArrayForId($index, $args) {
+		$this->id = $index;
+		$this->name = $args['name'];
+		$this->surname = $args['surname'];
+		$this->birth_date = $args['birth_date'];
+		$this->death_date = $args['death_date'];
+		$this->country_id = $args['country_id'];
 	}
 
 	public function getId() {
-		return $id;
+		return $this->id;
 	}
 
 	public function setId($value) {
-		$id = $value;
+		$this->id = $value;
 	}
 
 	public function getName() {
-		return $name;
+		return $this->name;
 	}
 
 	public function setName($value) {
-		$name = $value;
+		$this->name = $value;
 	}
 
 	public function getSurname() {
-		return $surname;
+		return $this->surname;
 	}
 
 	public function setSurname($value) {
-		$surname = $value;
+		$this->surname = $value;
 	}
 
 	public function getBirthDate() {
-		return $birth_date;
+		return $this->birth_date;
 	}
 
 	public function setBirthDate($value) {
-		$birht_date = $value;
+		$this->birht_date = $value;
 	}
 
 	public function getDeathDate() {
-		return $death_date;
+		return $this->death_date;
 	}
 
 	public function setDeathDate($value) {
-		$death_date = $value;
+		$this->death_date = $value;
 	}
 
 	public function getCountryId() {
-		return $country_id;
+		return $this->country_id;
 	}
 
 	public function setCountryId($value) {
-		$country_id = $value;
+		$this->country_id = $value;
 	}
 
 	public function select($order = null) {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "SELECT `a`.`id`, `a`.`name`, `a`.`surname`, `a`.`birth_date`, `a`.`death_date`, `c`.`country` FROM `authors` `a` JOIN `countries` `c` ON `a`.`country_id`=`c`.`id`".$order;
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $this->getQueryResult($con, $sqlQuery);
 		print("<table border=1><tr><th>Id</th><th>Name</th><th>Surname</th><th>Birth date</th><th>Death date</th><th>Country</th></tr>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print(Support::rowsGen($row));
 		}
 		print("</table>");
-		closeConnection($result, $con);
+		$this->closeConnection($result, $con);
 	}
 
 
 	public function insert() {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "INSERT INTO `authors`(`name`,`surname`,`birth_date`,`death_date`,`country_id`)
 				VALUES('".$this->name."', '".$this->surname."', '".$this->birth_date."', '".$this->death_date."', ".intval($this->country_id).")";
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function insert($value) {
-		$con = getConnector();
+	public function insertValue($value) {
+		$con = $this->getConnector();
 		$sqlQuery = "INSERT INTO `authors`(`name`,`surname`,`birth_date`,`death_date`,`country_id`)
 				VALUES('".$value['name']."', '".$value['surname']."', '".$value['birth_date']."', '".$value['death_date']."', ".intval($value['country_id']).")";
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
 	public function update() {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "UPDATE `authors` SET `name`='".$this->name."',`surname`='".$this->surname."',`birth_date`='".$this->birth_date."',`death_date`='".$this->death_date."',`country_id`=".intval($this->country_id)." WHERE `id`=".intval($this->id);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function update($index, $value) {
-		$con = getConnector();
+	public function updateValue($index, $value) {
+		$con = $this->getConnector();
 		$sqlQuery = "UPDATE `authors` SET `name`='".$value['name']."',`surname`='".$value['surname']."',`birth_date`='".$value['birth_date']."',`death_date`='".$value['death_date']."',`country_id`=".intval($value['country_id'])." WHERE `id`=".intval($index);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
 	public function delete() {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "DELETE FROM `authors` WHERE `id`=".intval($this->id);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function delete($index) {
-		$con = getConnector();
+	public function deleteById($index) {
+		$con = $this->getConnector();
 		$sqlQuery = "DELETE FROM `authors` WHERE `id`=".intval($index);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
 	public function search($part_of_word) {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "SELECT `a`.`id`, `a`.`name`, `a`.`surname`, `a`.`birth_date`, `a`.`death_date`, `c`.`country` FROM `authors` `a` JOIN `countries` `c` ON `a`.`country_id`=`c`.`id` WHERE CONCAT_WS(' ',`a`.`name`, `a`.`surname`) LIKE '%".$part_of_word."%'";
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $this->getQueryResult($con, $sqlQuery);
 		print("<table border=1><tr><th>Id</th><th>Name</th><th>Surname</th><th>Birth date</th><th>Death date</th><th>Country</th></tr>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print(Support::rowsGen($row));
 		}
 		print("</table>");
-		closeConnection($result, $con);
+		$this->closeConnection($result, $con);
 	}
 
 	public static function getList() {
-		$con = getConnector();
+		$db = new Database();
+		$con = $db->getConnector();
 		$sqlQuery = "SELECT `a`.`id`, CONCAT_WS(' ',a.name,a.surname) AS `author`  FROM `authors` `a`";
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $db->getQueryResult($con, $sqlQuery);
 		print("<select name='authors'>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print("<option value=".$row['id'].">".$row['author']."</option>");
 		}
 		print("</select>");
-		closeConnection($result, $con);
+		$db->closeConnection($result, $con);
 	}
 }
 ?>

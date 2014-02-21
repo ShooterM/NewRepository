@@ -11,14 +11,10 @@
 		<input type='text' class='field' name='pub_name' />					
 		Address
 		<br />
-		<select name='address_id'>
-			<?php getAddresses(); ?>					
-		</select>
+			<?php Address::getList(); ?>
 		Editor
 		<br />
-		<select name='editor_id'>
-			<?php getEditors(); ?>
-		</select>
+			<?php Editor::getList(); ?>
 		<input type='submit' name='submitPublisher' class='button' value='Insert' />
 		<hr />
 		<input type='text' class='field' name='publisher_id' />
@@ -36,14 +32,15 @@
 					break;
 				}
 			}
-			if($flag) {					
-				addPublisher($publisher);
+			$obj = new Publisher();
+			if($flag && Support::isDigit($publisher['address_id']) && Support::isDigit($publisher['editor_id']) && Support::isName($publisher['pub_name'])) {	
+				$obj->insertValue($publisher);
 			}
 		}
 		if(isset($_REQUEST['deletePublisher'])) {
 			$id = $_POST['publisher_id'];
-			if(!empty($id)) {
-				removePublisher($id);
+			if(!empty($id) && Support::isDigit($id)) {
+				$obj->deleteById($id);
 			}
 		}
 	?>

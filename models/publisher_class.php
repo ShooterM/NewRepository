@@ -1,4 +1,6 @@
 <?php
+include_once("db_class.php");
+include_once("interface.php");
 /**
  *
  * Class 'Publisher'
@@ -15,93 +17,81 @@ class Publisher extends Database implements IDatabaseFunction {
 	const UNKNOWN_INT = 0;
 
 	function __construct() {
-		$pub_name = UNKNOWN_STR;
-		$address_id = UNKNOWN_INT;
-		$editor_id = UNKNOWN_INT;
+		$this->pub_name = UNKNOWN_STR;
+		$this->address_id = UNKNOWN_INT;
+		$this->editor_id = UNKNOWN_INT;
 	}
 
-	function __construct($args) {
-		$pub_name = $args['pub_name'];
-		$address_id = $args['address_id'];
-		$editor_id = $args['editor_id'];
+	function writeArray($args) {
+		$this->pub_name = $args['pub_name'];
+		$this->address_id = $args['address_id'];
+		$this->editor_id = $args['editor_id'];
 	}
 
-	function __construct($index, $args) {
-		$id = $index;
-		$pub_name = $args['pub_name'];
-		$address_id = $args['address_id'];
-		$editor_id = $args['editor_id'];
+	function writeArrayForId($index, $args) {
+		$this->id = $index;
+		$this->pub_name = $args['pub_name'];
+		$this->address_id = $args['address_id'];
+		$this->editor_id = $args['editor_id'];
 	}
 
-	function __construct($pubName, $addressId, $editorId) {
-		$pub_name = $pubName;
-		$address_id = $addressId;
-		$editor_id = $editorId;
-	}
-
-	function __construct($index, $pubName, $addressId, $editorId) {
-		$id = $index;
-		$pub_name = $pubName;
-		$address_id = $addressId;
-		$editor_id = $editorId;
-	}
 	public function getId() {
-		return $id;
+		return $this->id;
 	}
 
 	public function setId($value) {
-		$id = $value;
+		$this->id = $value;
 	}
 
 	public function getPubName() {
-		return $pub_name;
+		return $this->pub_name;
 	}
 
 	public function setPubName($value) {
-		$pub_name = $value;
+		$this->pub_name = $value;
 	}
 
 	public function getAddressId() {
-		return $address_id;
+		return $this->address_id;
 	}
 
 	public function setAddressId($value) {
-		$address_id = $value;
+		$this->address_id = $value;
 	}
 
 	public function getEditorId() {
-		return $editor_id;
+		return $this->editor_id;
 	}
 
 	public function setEditorId($value) {
-		$editor_id = $value;
+		$this->editor_id = $value;
 	}
 
 	public function select($order = null) {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "SELECT `p`.`id`, `p`.`pub_name`, CONCAT_WS(', ',c.country, a.city,a.home,a.post_index) AS 'address', CONCAT_WS(' ',e.name,e.surname) AS `editor` FROM `publishers` `p` JOIN `editors` `e`, `addresses` `a`, `countries` `c` WHERE  `e`.`id`=`p`.`editor_id` AND `a`.`id`=`p`.`address_id` AND `c`.`id`=`a`.`country_id`".$order;
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $this->getQueryResult($con, $sqlQuery);
 		print("<table border=1><tr><th>Id</th><th>Publisher</th><th>Address</th><th>Editor</th></tr>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print(Support::rowsGen($row));
 		}
 		print("</table>");
-		closeConnection($result, $con);
+		$this->closeConnection($result, $con);
 	}
 
 	public function insert() {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "INSERT INTO `publishers`(`pub_name`,`address_id`,`editor_id`)
 				VALUES('".$value['pub_name']."', ".intval($this->address_id).", ".intval($this->editor_id).")";		
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function insert($value) {
-		$con = getConnector();
+	public function insertValue($value) {
+		$con = $this->getConnector();
 		$sqlQuery = "INSERT INTO `publishers`(`pub_name`,`address_id`,`editor_id`)
 				VALUES('".$value['pub_name']."', ".intval($value['address_id']).", ".intval($value['editor_id']).")";		
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
@@ -112,49 +102,50 @@ class Publisher extends Database implements IDatabaseFunction {
 		mysql_close($con);
 	}
 
-	public function update($index, $value) {
-		$con = getConnector();
+	public function updateValue($index, $value) {
+		$con = $this->getConnector();
 		$sqlQuery = "UPDATE `publishers` SET `pub_name`='".$value['pub_name']."',`address_id`=".$value['address_id'].",`editor_id`=".$value['editor_id']." WHERE `id`=".intval($index);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
 	public function delete() {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "DELETE FROM `publishers` WHERE `id`=".intval($this->id);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function delete($index) {
-		$con = getConnector();
+	public function deleteById($index) {
+		$con = $this->getConnector();
 		$sqlQuery = "DELETE FROM `publishers` WHERE `id`=".intval($index);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
 	public function search($part_of_word) {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "SELECT `p`.`id`, `p`.`pub_name`, CONCAT_WS(', ',c.country, a.city,a.home,a.post_index) AS 'address', CONCAT_WS(' ',e.name,e.surname) AS `editor` FROM `publishers` `p` JOIN `editors` `e`, `addresses` `a`, `countries` `c` WHERE  `e`.`id`=`p`.`editor_id` AND `a`.`id`=`p`.`address_id` AND `c`.`id`=`a`.`country_id` AND `p`.`pub_name` LIKE '%".$part_of_word."%'";
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $this->getQueryResult($con, $sqlQuery);
 		print("<table border=1><tr><th>Id</th><th>Publisher</th><th>Address</th><th>Editor</th></tr>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print(Support::rowsGen($row));
 		}
 		print("</table>");
-		closeConnection($result, $con);
+		$this->closeConnection($result, $con);
 	}
 
 	public static function getList() {
-		$con = getConnector();
+		$db = new Database();
+		$con = $db->getConnector();
 		$sqlQuery = "SELECT `id`, `pub_name` FROM `publishers`";
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $db->getQueryResult($con, $sqlQuery);
 		print("<select name='publishers'>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print("<option value=".$row['id'].">".$row['pub_name']."</option>");
 		}
 		print("</select>");
-		closeConnection($result, $con);
+		$db->closeConnection($result, $con);
 	}
 
 }

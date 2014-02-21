@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 
  * Open connection
@@ -31,5 +30,4 @@ function closeConnection($result, $connection) {
 	mysql_free_result($result);
 	mysql_close($connection);
 }
-
 ?>

@@ -1,4 +1,6 @@
 <?php
+include_once("db_class.php");
+include_once("interface.php");
 /**
  *
  * Class 'Genre'
@@ -15,107 +17,108 @@ class Genre extends Database implements IDatabaseFunction {
 		$genre = UNKNOWN_STR;
 	}
 
-	function __construct($genreName) {
-		$genre = $genreName;
+	function write($genreName) {
+		$this->genre = $genreName;
 	}
 
-	function __construct($index, $genreName) {
-		$id = $index;
-		$genre = $genreName;
+	function writeForId($index, $genreName) {
+		$this->id = $index;
+		$this->genre = $genreName;
 	}
 
 	public function getId() {
-		return $id;
+		return $this->id;
 	}
 
 	public function setId($value) {
-		$id = $value;
+		$this->id = $value;
 	}
 
 	public function getGenre() {
-		return $genre;
+		return $this->genre;
 	}
 
 	public function setGenre($value) {
-		$genre = $value;
+		$this->genre = $value;
 	}
 
 	public function select($order = null) {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "SELECT `id`, `genre` FROM `genres`".$order;
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $this->getQueryResult($con, $sqlQuery);
 		print("<table border=1><tr><th>Id</th><th>Genre</th></tr>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print(Support::rowsGen($row));
 		}
 		print("</table>");
-		closeConnection($result, $con);
+		$this->closeConnection($result, $con);
 	}
 
-	public function insert($value) {
-		$con = getConnector();
+	public function insert() {
+		$con = $this->getConnector();
 		$sqlQuery = "INSERT INTO `genres`(`genre`) VALUES('".$this->genre."')";
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function insert($value) {
-		$con = getConnector();
+	public function insertValue($value) {
+		$con = $this->getConnector();
 		$sqlQuery = "INSERT INTO `genres`(`genre`) VALUES('".$value."')";
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
 	public function update() {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "UPDATE `genres` SET `genre`='".$this->genre."' WHERE `id`=".intval($this->id);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function update($index, $value) {
-		$con = getConnector();
+	public function updateValue($index, $value) {
+		$con = $this->getConnector();
 		$sqlQuery = "UPDATE `genres` SET `genre`='".$value."' WHERE `id`=".intval($index);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
 	public function delete() {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "DELETE FROM `genres` WHERE `id`=".intval($this->id);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function delete($index) {
-		$con = getConnector();
+	public function deleteById($index) {
+		$con = $this->getConnector();
 		$sqlQuery = "DELETE FROM `genres` WHERE `id`=".intval($index);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
 	public function search($part_of_word) {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "SELECT `id`, `genre` FROM `genres` WHERE `genre` LIKE '%".$part_of_word."%'";
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $this->getQueryResult($con, $sqlQuery);
 		print("<table border=1><tr><th>Id</th><th>Genre</th></tr>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print(Support::rowsGen($row));
 		}
 		print("</table>");
-		closeConnection($result, $con);
+		$this->closeConnection($result, $con);
 	}
 
 	public static function getList() {
-		$con = getConnector();
+		$db = new Database();
+		$con = $db->getConnector();
 		$sqlQuery = "SELECT `id`, `genre` FROM `genres`";
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $db->getQueryResult($con, $sqlQuery);
 		print("<select name='genres'>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print("<option value=".$row['id'].">".$row['genre']."</option>");
 		}
 		print("</select>");
-		closeConnection($result, $con);
+		$db->closeConnection($result, $con);
 	}
 }
 ?>

@@ -1,4 +1,6 @@
 <?php
+include_once("db_class.php");
+include_once("interface.php");
 /**
  *
  * Class 'Address'
@@ -17,115 +19,115 @@ class Address extends Database implements IDatabaseFunction {
 	const UNKNOWN_INT = 0;
 
 	function __construct() {
-		$country_id = UNKNOWN_INT;
-		$city = UNKNOWN_STR;
-		$street = UNKNOWN_STR;
-		$house = UNKNOWN_STR;
-		$index = UNKNOWN_INT;
+		$this->country_id = UNKNOWN_INT;
+		$this->city = UNKNOWN_STR;
+		$this->street = UNKNOWN_STR;
+		$this->house = UNKNOWN_STR;
+		$this->index = UNKNOWN_INT;
 	}
 
-	function __construct($args) {
-		$country_id = $args['country_id'];
-		$city = $args['city'];
-		$street = $args['street'];
-		$house = $args['house'];
-		$index = $args['index'];
+	function writeArray($args) {
+		$this->country_id = $args['country_id'];
+		$this->city = $args['city'];
+		$this->street = $args['street'];
+		$this->house = $args['house'];
+		$this->index = $args['index'];
 	}
 
-	function __construct($num, $args) {
-		$id = $num;
-		$country_id = $args['country_id'];
-		$city = $args['city'];
-		$street = $args['street'];
-		$house = $args['house'];
-		$index = $args['index'];
+	function writeArrayForId($num, $args) {
+		$this->id = $num;
+		$this->country_id = $args['country_id'];
+		$this->city = $args['city'];
+		$this->street = $args['street'];
+		$this->house = $args['house'];
+		$this->index = $args['index'];
 	}
 
 	public function getId() {
-		return $id;
+		return $this->id;
 	}
 
 	public function setId($value) {
-		$id = $value;
+		$this->id = $value;
 	}
 
 	public function getCountryId() {
-		return $country_id;
+		return $this->country_id;
 	}
 
 	public function setCountryId($value) {
-		$country_id = $value;
+		$this->country_id = $value;
 	}
 
 	public function getCity() {
-		return $city;
+		return $this->city;
 	}
 
 	public function setCity($value) {
-		$city = $value;
+		$this->city = $value;
 	}
 
 	public function getStreet() {
-		return $street;
+		return $this->street;
 	}
 
 	public function setStreet($value) {
-		$street = $value;
+		$this->street = $value;
 	}
 
 	public function getHouse() {
-		return $house;
+		return $this->house;
 	}
 
 	public function setHouse($value) {
-		$house = $value;
+		$this->house = $value;
 	}
 
 	public function getIndex() {
-		return $index;
+		return $this->index;
 	}
 
 	public function setIndex($value) {
-		$index = $value;
+		$this->index = $value;
 	}
 
 	public function select($order = null) {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "SELECT `a`.`id`, `c`.`country`, `a`.`city`, `a`.`street`, `a`.`home`, `a`.`post_index` FROM `addresses` `a`,`countries` `c`  WHERE `a`.`country_id`=`c`.`id`".$order;
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $this->getQueryResult($con, $sqlQuery);
 		print("<table border=1><tr><th>Id</th><th>Country</th><th>City</th><th>Street</th><th>House</th><th>Post index</th></tr>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print(Support::rowsGen($row));
 		}
 		print("</table>");
-		closeConnection($result, $con);
+		$this->closeConnection($result, $con);
 	}
 
 	public function insert() {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "INSERT INTO `addresses`(`country_id`, `city`, `street`, `home`, `post_index`)
 				VALUES (".intval($this->country_id).", '".$this->city."', '".$this->street."', '".$this->house."', '".$this->index."')";
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function insert($value) {
-		$con = getConnector();
+	public function insertValue($value) {
+		$con = $this->getConnector();
 		$sqlQuery = "INSERT INTO `addresses`(`country_id`, `city`, `street`, `home`, `post_index`)
 				VALUES (".intval($value['country_id']).", '".$value['city']."', '".$value['street']."', '".$value['house']."', '".$value['index']."')";
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
 	public function update() {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "UPDATE `addresses` SET `country_id`=".intval($this->country_id).",`city`='".$this->city."',`street`='".$this->street."',`home`='".$this->house."',`post_index`='".$this->index."' WHERE `id`=".intval($this->id);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function update($ind, $value) {
-		$con = getConnector();
+	public function updateValue($ind, $value) {
+		$con = $this->getConnector();
 		$sqlQuery = "UPDATE `addresses` SET `country_id`=".intval($value['country_id']).",`city`='".$value['city']."',`street`='".$value['street']."',`home`='".$value['house']."',`post_index`='".$value['index']."' WHERE `id`=".intval($ind);
 		getQueryResult($con, $sqlQuery);
 		mysql_close($con);
@@ -134,39 +136,40 @@ class Address extends Database implements IDatabaseFunction {
 	public function delete() {
 		$con = getConnector();
 		$sqlQuery = "DELETE FROM `addresses` WHERE `id`=".intval($this->id);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function delete($ind) {
-		$con = getConnector();
+	public function deleteById($ind) {
+		$con = $this->getConnector();
 		$sqlQuery = "DELETE FROM `addresses` WHERE `id`=".intval($ind);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
 	public function search($part_of_word) {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "SELECT `a`.`id`, CONCAT_WS(', ',c.country, a.city,a.home,a.post_index) AS 'address' FROM `addresses` `a` JOIN `countries` `c` WHERE  `c`.`id`=`a`.`country_id` AND CONCAT_WS(', ',c.country, a.city,a.home,a.post_index) LIKE '%".$part_of_word."%'";
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $this->getQueryResult($con, $sqlQuery);
 		print("<table border=1><tr><th>Id</th><th>Address</th></tr>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print(Support::rowsGen($row));
 		}
 		print("</table>");
-		closeConnection($result, $con);
+		$this->closeConnection($result, $con);
 	}
 
 	public static function getList() {
-		$con = getConnector();
+		$db = new Database();
+		$con = $db->getConnector();
 		$sqlQuery = "SELECT `a`.`id`, CONCAT_WS(', ',c.country, a.city,a.home,a.post_index) AS 'address' FROM `addresses` `a` JOIN `countries` `c` WHERE  `c`.`id`=`a`.`country_id`";
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $db->getQueryResult($con, $sqlQuery);
 		print("<select name='addresses'>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print("<option value=".$row['id'].">".$row['address']."</option>");
 		}
 		print("</select>");
-		closeConnection($result, $con);
+		$db->closeConnection($result, $con);
 	}
 }
 ?>

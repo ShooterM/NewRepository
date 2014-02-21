@@ -1,4 +1,6 @@
 <?php
+include_once("db_class.php");
+include_once("interface.php");
 /**
  *
  * Class 'Country'
@@ -8,113 +10,115 @@
 class Country extends Database implements IDatabaseFunction {
 	private $id;
 	private $country;
-
+	
 	const UNKNOWN_STR = "Unknown";
 
 	function __construct() {
-		$country = UNKNOWN_STR;
+		$this->country = UNKNOWN_STR;		
 	}
 
-	function __construct($countryName) {
-		$country = $countryName;
+	function write($countryName) {
+		$this->country = $countryName;
 	}
 
-	function __construct($index, $countryName) {
-		$id = $index;
-		$country = $countryName;
+	function writeForId($index, $countryName) {
+		$this->id = $index;
+		$this->country = $countryName;
 	}
 
 	public function getId() {
-		return $id;
+		return $this->id;
 	}
 
 	public function setId($value) {
-		$id = $value;
+		$this->id = $value;
 	}
 
 	public function getCountry() {
-		return $country;
+		return $this->country;
 	}
 
 	public function setCountry($value) {
-		$country = $value;
+		$this->country = $value;
 	}
 
 	public function select($order = null) {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "SELECT `id`, `country` FROM `countries`".$order;
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $this->getQueryResult($con, $sqlQuery);
 		print("<table border=1><tr><th>Id</th><th>Country</th></tr>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print(Support::rowsGen($row));
 		}
 		print("</table");
-		closeConnection($result, $con);
+		$this->closeConnection($result, $con);
 	}
 
 	public function insert() {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "INSERT INTO `countries`(`country`) VALUES('".$this->country."')";
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function insert($value) {
-		$con = getConnector();
+	public function insertValue($value) {
+		$con = $this->getConnector();
 		$sqlQuery = "INSERT INTO `countries`(`country`) VALUES('".$value."')";
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
 	public function update() {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "UPDATE `countries` SET `country`='".$this->country."' WHERE `id`=".intval($this->id);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function update($index, $value) {
-		$con = getConnector();
+	public function updateValue($index, $value) {
+		$con = $this->getConnector();
 		$sqlQuery = "UPDATE `countries` SET `country`='".$value."' WHERE `id`=".intval($index);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
 	public function delete() {
-		$con = getConnector();
+		$con = $this->getConnector();
 		$sqlQuery = "DELETE FROM `countries` WHERE `id`=".intval($this->id);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
-	public function delete($index) {
-		$con = getConnector();
+	public function deleteById($index) {
+		$con = $this->getConnector();
 		$sqlQuery = "DELETE FROM `countries` WHERE `id`=".intval($index);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 
 	public function search($part_of_word) {
+		$con = $this->getConnector();
 		$sqlQuery = "SELECT `id`, `country` FROM `countries` WHERE `country` LIKE '%".$part_of_word."%'";
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $this->getQueryResult($con, $sqlQuery);
 		print("<table border=1><tr><th>Id</th><th>Country</th></tr>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print(Support::rowsGen($row));
 		}
 		print("</table");
-		closeConnection($result, $con);
+		$this->closeConnection($result, $con);
 	}
 
 	public static function getList() {
-		$con = getConnector();
+		$db = new Database();
+		$con = $db->getConnector();		
 		$sqlQuery = "SELECT `id`, `country` FROM `countries`";
-		$result = getQueryResult($con, $sqlQuery);
+		$result = $db->getQueryResult($con, $sqlQuery);
 		print("<select name='countries'>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print("<option value='".$row['id']."'>".$row['country']."</option>");
 		}
 		print("</select>");
-		closeConnection($result, $con);
+		$db->closeConnection($result, $con);
 	}
 }
 ?>
