@@ -145,20 +145,23 @@ include_once("../../models/interface.php");
 			?>
 		</div>
 		<div id='right-side'>
-			<?php		
+			<?php						
 				if(isset($_REQUEST['page'])) {
 					switch ($_GET['page']) {
-						case "Authors": {									
+						case "Authors": {
+							print("<h3>".$_GET['page']."</h3>");									
 							$author = new Author();
 							$author->select($order);
 							break;
 						}
-						case "Books" : {									
+						case "Books" : {						
+							print("<h3>".$_GET['page']."</h3>");			
 							$book = new Book();
 							$book->select($order);
 							break;
 						}
-						case "Publishers" : {									
+						case "Publishers" : {					
+							print("<h3>".$_GET['page']."</h3>");				
 							$publisher = new Publisher();
 							$publisher->select($order);
 							break;
