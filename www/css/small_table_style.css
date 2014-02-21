@@ -1,22 +1,38 @@
 @CHARSET "UTF-8";
 
-.fields, #selectOne {
+.fields,#selectOne {
 	width: 62px;
 }
 
-.fields:hover, .fields:focus {
+.fields:hover,.fields:focus {
 	border-width: 2px;
 	border-color: #00BFFF;
 }
 
 .submit {
 	float: right;
-	width: 100px;	
+	width: 100px;
 }
+
+.orders {
+	margin: auto;
+	text-align: center;
+}
+
+.orders a,.orders a:visited {
+	text-decoration: none;
+	color: #000;
+}
+
+.orders a:hover {
+	color: green;
+	/*transition: color 2.1s linear;*/
+}
+
 fieldset {
 	border-color: #00BFFF;
 }
 
 legend {
-	font-weight: bold;	
+	font-weight: bold;
 }

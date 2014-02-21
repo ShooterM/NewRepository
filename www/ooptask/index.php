@@ -1,20 +1,18 @@
 <?php
-/*
-include("../../config/config.php");
-include("../../config/db_lib.php");
-include("f_lib.php");
-*/
 
-/**
- * 
- * Load content
- * @param string contentPath
- */ 
-function load_content($contentPath) {
-	$homepage = file_get_contents($contentPath);
-	print($homepage);
-}
-
+ // ÎÑÜ ÒÓÒ Ï²ÄÊËÞ×ÀÞ
+ include("../../models/country_class.php");
+ 
+ /*
+ include("../../models/author_class.php");
+ include("../../models/editor_class.php");
+ include("../../models/genre_class.php");
+ include("../../models/publisher_class.php");
+ include("../../models/book_class.php");
+ include("../../models/address_class.php");
+ include("../../models/support_class.php");
+ */
+ 
 ?>
 
 <!DOCTYPE html>
@@ -117,9 +115,17 @@ function load_content($contentPath) {
 				 		font-family: Arial, fantasy" >			
 				<?php print($table); ?>
 			</div>
+			<div class='orders'>
+				[ <a href='<?php print($_SERVER['REQUEST_URI']);?>&order=1'>id</a> |
+				<a href='<?php print($_SERVER['REQUEST_URI']);?>&order=2'>name</a> ]											
+			</div>
 			<hr />
-			<?php 	 			
-				// left block
+			<?php
+				if(isset($_REQUEST['page']) && $_GET['page'] === "Authors") {									
+/* ÒÓÒ ÂÈÊËÈÊÀÞ ÔÎÐÌÓ */					include("forms/author.php");
+				} else {
+					
+				}
 			?>
 		</div>
 		<div id='right-side'>

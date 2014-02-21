@@ -6,7 +6,7 @@
  *
  */
 class Support {
-	
+
 	public static function getCorrectDate($date) {
 		$parts = explode('/', $date);
 		return  "$parts[2]-$parts[0]-$parts[1]";
@@ -22,6 +22,30 @@ class Support {
 			}
 		}
 		return $newRow."</tr>";
+	}
+
+	public static function isName($value) {
+		if (preg_match("/[^a-z,A-Z,\s]/",$value)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public static function isYear($value) {
+		if ($value < 1950 || $value > (int)date("Y", time())) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public static function isDigit($value) {
+		if(!preg_match("|^[\d]+$|", $value)) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }
 ?>

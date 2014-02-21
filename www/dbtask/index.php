@@ -115,6 +115,11 @@ function load_content($contentPath) {
 				 		padding-bottom: 5px;
 				 		font-family: Arial, fantasy" >			
 				<?php print($table); ?>
+				
+			</div>
+			<div class='orders'>
+				[ <a href='<?php print($_SERVER['REQUEST_URI']);?>&order=1'>id</a> |
+				<a href='<?php print($_SERVER['REQUEST_URI']);?>&order=2'>name</a> ]											
 			</div>
 			<hr />
 			<?php 	 			
@@ -133,8 +138,8 @@ function load_content($contentPath) {
 		</div>
 		<div id='right-side'>
 			<?php			
-				if (isset($_POST['submitTable']) && !empty($_POST['order'])) {					
-					$order = " ORDER BY ".$_POST['order'];	
+				if (isset($_GET['order']) && !empty($_GET['order'])) {					
+					$order = " ORDER BY ".$_GET['order'];	
 				} else {
 					$order = "";
 				}

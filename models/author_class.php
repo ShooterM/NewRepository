@@ -17,7 +17,7 @@ class Author extends Database implements IDatabaseFunction {
 	const UNKNOWN_DAT = "0000-00-00";
 	const UNKNOWN_INT = 0;
 
-	function __construct() {
+	function __construct() {		
 		$name = UNKNOWN_STR;
 		$surname = UNKNOWN_STR;
 		$birth_date = UNKNOWN_DAT;
