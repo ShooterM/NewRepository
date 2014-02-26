@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+
+#map-canvas {
+	border-color: #BBBBBB;
+	border-radius: 7px;
+	border-style: solid;
+	height: 500px;
+	margin: auto;
+	width: 500px;
+	z-index: 1;
+}

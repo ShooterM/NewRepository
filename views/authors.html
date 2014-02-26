@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Authors</title>
+</head>
+<body>
+	<form name='addAuthor' id='authorsFrm' method="post">
+		Name
+		<br />
+		<input type='text' class='field' name='name' />
+		Surname
+		<br />
+		<input type='text' class='field' name='surname' />
+		Birth date
+		<br />
+		<input type='text' class='field' id='datepicker' name='birth_date' />
+		Death date
+		<br />
+		<input type='text' class='field'  id='datepicker1' name='death_date' />
+		Country
+		<br />
+			<?php Country::getList(); ?>
+		<input type='submit' name='submitAuthor' class='button' value='Insert' />
+		<hr />
+		<input type='text' class='field' name='author_id' />
+		<input type='submit' name='deleteAuthor' class='button' value='Delete' />
+	</form>
+	<?php if(isset($_REQUEST['submitAuthor'])) print($_POST['countries']); ?>
+</body>
+</html>

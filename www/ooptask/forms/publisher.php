@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Publishers</title>
 </head>
 <body>
 	<form name='addPublisher' id='booksFrm' method="post">
@@ -22,8 +22,8 @@
 	</form> 
 	<?php
 		if(isset($_REQUEST['submitPublisher'])) {
-			$publisher['address_id'] = intval($_POST['address_id']);
-			$publisher['editor_id'] = intval($_POST['editor_id']);
+			$publisher['address_id'] = intval($_POST['addresses']);
+			$publisher['editor_id'] = intval($_POST['editors']);
 			$publisher['pub_name'] = $_POST['pub_name'];		
 			$flag = true;
 			foreach ($publisher as $value) {
@@ -32,14 +32,15 @@
 					break;
 				}
 			}
-			$obj = new Publisher();
 			if($flag && Support::isDigit($publisher['address_id']) && Support::isDigit($publisher['editor_id']) && Support::isName($publisher['pub_name'])) {	
+				$obj = new Publisher();
 				$obj->insertValue($publisher);
 			}
 		}
 		if(isset($_REQUEST['deletePublisher'])) {
 			$id = $_POST['publisher_id'];
 			if(!empty($id) && Support::isDigit($id)) {
+				$obj = new Publisher();
 				$obj->deleteById($id);
 			}
 		}

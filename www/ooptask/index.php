@@ -95,6 +95,35 @@ include_once("../../models/interface.php");
 					</li>					
 				</ul>
 			</li>
+			<li> 
+				<a href='../mvctask/index.php?action=about'>MVC</a>
+				<ul>
+					<li>
+						<a href='../mvctask/index.php?action=author'>Authors</a>
+					</li>
+					<li>
+						<a href='../mvctask/index.php?action=book'>Books</a>
+					</li>
+					<li>
+						<a href='../mvctask/index.php?action=publisher'>Publishers</a>
+					</li>
+					<li>
+						<a href='../mvctask/index.php?action=address'>Addresses</a>
+					</li>
+					<li>
+						<a href='../mvctask/index.php?action=country'>Countries</a>
+					</li>
+					<li>
+						<a href='../mvctask/index.php?action=genre'>Genres</a>
+					</li>
+					<li>
+						<a href='../mvctask/index.php?action=editor'>Editors</a>
+					</li>
+					<li>
+						<a href='../mvctask/index.php?action=search'>Search</a>
+					</li>					
+				</ul>
+			</li>
 			<li>
 				<a href='mailto:shooterm@mail.ru'>Contacts</a>
 			</li>

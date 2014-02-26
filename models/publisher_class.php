@@ -17,9 +17,9 @@ class Publisher extends Database implements IDatabaseFunction {
 	const UNKNOWN_INT = 0;
 
 	function __construct() {
-		$this->pub_name = UNKNOWN_STR;
-		$this->address_id = UNKNOWN_INT;
-		$this->editor_id = UNKNOWN_INT;
+		$this->pub_name = self::UNKNOWN_STR;
+		$this->address_id = self::UNKNOWN_INT;
+		$this->editor_id = self::UNKNOWN_INT;
 	}
 
 	function writeArray($args) {
@@ -82,7 +82,8 @@ class Publisher extends Database implements IDatabaseFunction {
 	public function insert() {
 		$con = $this->getConnector();
 		$sqlQuery = "INSERT INTO `publishers`(`pub_name`,`address_id`,`editor_id`)
-				VALUES('".$value['pub_name']."', ".intval($this->address_id).", ".intval($this->editor_id).")";		
+				VALUES('".$value['pub_name']."', ".intval($this->address_id).", ".intval($this->editor_id).")";
+		print($sqlQuery);		
 		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}

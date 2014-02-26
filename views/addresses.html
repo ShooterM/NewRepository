@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Addresses</title>
+</head>
+<body>
+	<form name='addressFrm' id='addressesFrm' method="post">
+		Country 	
+		<?php Country::getList(); ?>
+		City <input class='field' type='text' name='city' />
+		Street <input class='field' type='text' name='street' />
+		House <input class='field' type='text' name='house' />
+		Post index <input class='field' type='text' name='index' />
+		<input class='button' type='submit' name='submitAddress' value='Insert' />
+		<hr />
+		<input class='field' type='text' name='address_id' />
+		<input class='button' type='submit' name='deleteAddress' value='Delete' />
+	</form>
+</body>
+</html>

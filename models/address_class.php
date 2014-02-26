@@ -19,11 +19,11 @@ class Address extends Database implements IDatabaseFunction {
 	const UNKNOWN_INT = 0;
 
 	function __construct() {
-		$this->country_id = UNKNOWN_INT;
-		$this->city = UNKNOWN_STR;
-		$this->street = UNKNOWN_STR;
-		$this->house = UNKNOWN_STR;
-		$this->index = UNKNOWN_INT;
+		$this->country_id = self::UNKNOWN_INT;
+		$this->city = self::UNKNOWN_STR;
+		$this->street = self::UNKNOWN_STR;
+		$this->house = self::UNKNOWN_STR;
+		$this->index = self::UNKNOWN_INT;		
 	}
 
 	function writeArray($args) {

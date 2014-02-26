@@ -20,11 +20,11 @@ class Author extends Database implements IDatabaseFunction {
 	const UNKNOWN_INT = 0;
 
 	function __construct() {		
-		$this->name = UNKNOWN_STR;
-		$this->surname = UNKNOWN_STR;
-		$this->birth_date = UNKNOWN_DAT;
-		$this->death_date = UNKNOWN_DAT;
-		$this->country_id = UNKNOWN_INT;
+		$this->name = self::UNKNOWN_STR;
+		$this->surname = self::UNKNOWN_STR;
+		$this->birth_date = self::UNKNOWN_DAT;
+		$this->death_date = self::UNKNOWN_DAT;
+		$this->country_id = self::UNKNOWN_INT;
 	}
 
 	function writeArray($args) {

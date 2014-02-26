@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Publishers</title>
+</head>
+<body>
+	<form name='addPublisher' id='publishersFrm' method="post">
+		Name
+		<br />
+		<input type='text' class='field' name='pub_name' />					
+		Address
+		<br />
+			<?php Address::getList(); ?>
+		Editor
+		<br />
+			<?php Editor::getList(); ?>
+		<input type='submit' name='submitPublisher' class='button' value='Insert' />
+		<hr />
+		<input type='text' class='field' name='publisher_id' />
+		<input type='submit' name='deletePublisher' class='button' value='Delete' />
+	</form>
+</body>
+</html>

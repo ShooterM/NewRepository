@@ -15,8 +15,8 @@ class Editor extends Database implements IDatabaseFunction {
 	const UNKNOWN_STR = "Unknown";
 
 	function __construct() {
-		$this->name = UNKNOWN_STR;
-		$this->surname = UNKNOWN_STR;
+		$this->name = self::UNKNOWN_STR;
+		$this->surname = self::UNKNOWN_STR;
 	}
 
 	function write($full_name) {
@@ -114,7 +114,7 @@ class Editor extends Database implements IDatabaseFunction {
 		$con = $this->getConnector();
 		$sqlQuery = "SELECT `id`, CONCAT_WS(' ', `name`, `surname`) AS `editor` FROM `editors` WHERE CONCAT_WS(' ', `name`, `surname`) LIKE '%".$part_of_word."%'";
 		$result = $this->getQueryResult($con, $sqlQuery);
-		print("<table border=1><tr><th>Id</th><th>Name</th><th>Surname</th></tr>");
+		print("<table border=1><tr><th>Id</th><th>Name</th></tr>");
 		while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 			print(Support::rowsGen($row));
 		}

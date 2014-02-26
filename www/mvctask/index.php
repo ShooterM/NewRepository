@@ -1,19 +1,6 @@
 <?php
-
-include("../../config/config.php");
-include("../../config/db_lib.php");
-include("f_lib.php");
-
-/**
- * 
- * Load content
- * @param string contentPath
- */ 
-function load_content($contentPath) {
-	$homepage = file_get_contents($contentPath);
-	print($homepage);
-}
-
+include_once("../../controllers/action_contents.php");
+include_all();
 ?>
 
 <!DOCTYPE html>
@@ -58,22 +45,22 @@ function load_content($contentPath) {
 				<a href='../'>Home</a>
 			</li>
 			<li>
-				<a href='?pageContent=Select'>Database</a>
+				<a href='../dbtask/index.php?pageContent=Select'>Database</a>
 				<ul>
 					<li>
-						<a href='?pageContent=Authors'>Authors</a>
+						<a href='../dbtask/index.php?pageContent=Authors'>Authors</a>
 					</li>
 					<li>
-						<a href='?pageContent=Books'>Books</a>
+						<a href='../dbtask/index.php?pageContent=Books'>Books</a>
 					</li>
 					<li>
-						<a href='?pageContent=Publishers'>Publishers</a>
+						<a href='../dbtask/index.php?pageContent=Publishers'>Publishers</a>
 					</li>
 					<li>
-						<a href='?pageContent=all'>Small tables</a>
+						<a href='../dbtask/index.php?pageContent=all'>Small tables</a>
 					</li>
 					<li>
-						<a href='?pageContent=search'>Search</a>
+						<a href='../dbtask/index.php?pageContent=search'>Search</a>
 					</li>					
 				</ul>
 			</li>
@@ -98,31 +85,31 @@ function load_content($contentPath) {
 				</ul>
 			</li>
 			<li> 
-				<a href='../mvctask/index.php?action=about'>MVC</a>
+				<a href='?action=about'>MVC</a>
 				<ul>
 					<li>
-						<a href='../mvctask/index.php?action=author'>Authors</a>
+						<a href='?action=author'>Authors</a>
 					</li>
 					<li>
-						<a href='../mvctask/index.php?action=book'>Books</a>
+						<a href='?action=book'>Books</a>
 					</li>
 					<li>
-						<a href='../mvctask/index.php?action=publisher'>Publishers</a>
+						<a href='?action=publisher'>Publishers</a>
 					</li>
 					<li>
-						<a href='../mvctask/index.php?action=address'>Addresses</a>
+						<a href='?action=address'>Addresses</a>
 					</li>
 					<li>
-						<a href='../mvctask/index.php?action=country'>Countries</a>
+						<a href='?action=country'>Countries</a>
 					</li>
 					<li>
-						<a href='../mvctask/index.php?action=genre'>Genres</a>
+						<a href='?action=genre'>Genres</a>
 					</li>
 					<li>
-						<a href='../mvctask/index.php?action=editor'>Editors</a>
+						<a href='?action=editor'>Editors</a>
 					</li>
 					<li>
-						<a href='../mvctask/index.php?action=search'>Search</a>
+						<a href='?action=search'>Search</a>
 					</li>					
 				</ul>
 			</li>
@@ -133,9 +120,6 @@ function load_content($contentPath) {
 	</div>
 	<div id='content'>	
 		<div id='left-side'>		
-			<?php 
-				$table = $_GET['pageContent'];
-			?>
 			<div class='field' id='title' 
 				 style="letter-spacing: 1px; 
 				 		margin: auto; 
@@ -143,54 +127,33 @@ function load_content($contentPath) {
 				 		font-weight: bold; 
 				 		padding-bottom: 5px;
 				 		font-family: Arial, fantasy" >			
-				<?php print($table); ?>
-				
+				<?php 
+					$form = "about";
+					if (isset($_REQUEST['action']) && !empty($_GET['action'])) {
+						$form = $_GET['action'];
+					}
+					if(!is_null($form)) {
+						print(trim(ucfirst($form)));	
+					}
+					if (isset($_GET['order']) && !empty($_GET['order']) && Support::isDigit($_GET['order'])) {					
+						$order = " ORDER BY ".$_GET['order'];	
+					} else {
+						$order = "";
+					}
+				?>
 			</div>
 			<div class='orders'>
+				<?php if ($form != "about") {?>
 				[ <a href='<?php print($_SERVER['REQUEST_URI']);?>&order=1'>id</a> |
-				<a href='<?php print($_SERVER['REQUEST_URI']);?>&order=2'>name</a> ]											
+				<a href='<?php print($_SERVER['REQUEST_URI']);?>&order=2'>name</a> ]
+				<?php }?>										
 			</div>
 			<hr />
-			<?php 	 			
-				if($table === "Books") {
-					require ("insertBook.php");					
-				} else {
-					if($table === "Authors") {												
-						require ("insertAuthor.php");					
-					} else {
-						if($table === "Publishers") {												
-							require("insertPublisher.php");					
-						}
-					}					
-				}			
-			?>
+			<?php load_form($form); ?>
 		</div>
 		<div id='right-side'>
-			<?php			
-				if (isset($_GET['order']) && !empty($_GET['order'])) {					
-					$order = " ORDER BY ".$_GET['order'];	
-				} else {
-					$order = "";
-				}
-				
-				if ($_GET['pageContent'] === "Authors") {
-					print("<h3>".$_GET['pageContent']."</h3>");
-					showAuthors($order);					
-				} else {
-					if ($_GET['pageContent'] === "Publishers") {
-						print("<h3>".$_GET['pageContent']."</h3>");							
-						showPublishers($order);
-					} else {					
-						if ($_GET['pageContent'] === "Books") {
-							print("<h3>".$_GET['pageContent']."</h3>");									
-							showBooks($order);
-						} else {
-							if(isset($_REQUEST) && !is_null($_GET['pageContent'])){
-								loadSubPages($_GET['pageContent']);
-							}					
-						}					
-					}
-				}				
+			<?php 			
+				load_table($form, $order); 
 			?>
 		</div>
 	</div>

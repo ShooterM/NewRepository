@@ -52,7 +52,8 @@ h3 {
 	width: 80px;
 }
 
-#mainFrm,#booksFrm,#authorsFrm,#publishersFrm {
+#mainFrm,#booksFrm,#authorsFrm,#publishersFrm,#genresFrm,#editorsFrm,#addressesFrm,#countriesFrm,#sForm
+	{
 	text-align: center;
 }
 

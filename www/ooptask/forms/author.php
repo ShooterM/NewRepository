@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>Authors</title>
 </head>
 <body>
 	<form name='addAuthor' id='authorsFrm' method="post">
@@ -30,12 +30,11 @@
 		<input type='submit' name='deleteAuthor' class='button' value='Delete' />
 		</form>
 		<?php			
-			// Insert author
 			if(isset($_REQUEST['submitAuthor'])) {
 				$author['name'] = $_POST['name'];
 				$author['surname'] = $_POST['surname'];
 				$author['birth_date'] = Support::getCorrectDate($_POST['birth_date']);					
-				$author['country_id'] = $_POST['country_id'];					
+				$author['country_id'] = $_POST['countries'];					
 				$flag = true;
 				foreach ($author as $value) {					
 					if (empty($value)) {
@@ -47,16 +46,16 @@
 					$author['death_date'] = NULL;
 				} else {
 					$author['death_date'] = Support::getCorrectDate($_POST['death_date']);
-				}	
-				$obj = new Author();			
+				}										
 				if($flag && Support::isName($author['name']) || Support::isName($author['surname']) || Support::isDigit($author['country_id'])) {
-					$obj->insert($author);
+					$obj = new Author();
+					$obj->insertValue($author);
 				}				
 			}
-			// Delete author
 			if(isset($_REQUEST['deleteAuthor'])) {
-				$id = $_POST['author_id'];
+				$id = $_POST['author_id'];				
 				if(!empty($id) && Support::isDigit($id)) {
+					$obj = new Author();
 					$obj->deleteById($id);
 				}
 			}

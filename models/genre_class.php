@@ -14,7 +14,7 @@ class Genre extends Database implements IDatabaseFunction {
 	const UNKNOWN_STR = "Unknown";
 
 	function __construct() {
-		$genre = UNKNOWN_STR;
+		$genre = self::UNKNOWN_STR;
 	}
 
 	function write($genreName) {

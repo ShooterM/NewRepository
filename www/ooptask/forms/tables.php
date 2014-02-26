@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>All tables</title>
 	<style>
 		select {
 			width: 70px;
@@ -108,7 +108,7 @@
 	<?php 
 		if(isset($_REQUEST['submitAddress'])) {		
 			if (!empty($_POST['city']) && !empty($_POST['street']) && !empty($_POST['house']) && !empty($_POST['index'])) {			
-				$address['country_id'] = intval($_POST['country_id']);			
+				$address['country_id'] = intval($_POST['countries']);			
 				$address['city'] = $_POST['city'];
 				$address['street'] = $_POST['street'];
 				$address['house'] = $_POST['house'];
@@ -117,7 +117,7 @@
 					$addressObj = new Address();
 					$addressObj->insertValue($address);
 				}
-			}			
+			}
 		}
 		if($display === "addresses") {
 			$addressObj = new Address();

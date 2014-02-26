@@ -22,13 +22,13 @@ class Book extends Database implements IDatabaseFunction {
 	const UNKNOWN_INT = 0;
 
 	function __construct() {
-		$this->author_id = UNKNOWN_INT;
-		$this->title = UNKNOWN_STR;
-		$this->year = UNKNOWN_INT;
-		$this->publisher_id = UNKNOWN_INT;
-		$this->page_count = UNKNOWN_INT;
-		$this->receipt_date = UNKNOWN_DAT;
-		$this->genre_id = UNKNOWN_INT;
+		$this->author_id = self::UNKNOWN_INT;
+		$this->title = self::UNKNOWN_STR;
+		$this->year = self::UNKNOWN_INT;
+		$this->publisher_id = self::UNKNOWN_INT;
+		$this->page_count = self::UNKNOWN_INT;
+		$this->receipt_date = self::UNKNOWN_DAT;
+		$this->genre_id = self::UNKNOWN_INT;
 	}
 
 	function writeArray($args) {
@@ -137,7 +137,7 @@ class Book extends Database implements IDatabaseFunction {
 
 	public function insertValue($value) {
 		$con = $this->getConnector();
-		$sqlQuery = "INSERT INTO `books`(`author_id`,`title`,`year`,`publisher_id`,`page_count`,`receipt_date`,`genre_id`) VALUES(".intval($value['author_id']).", '".$value['title']."', ".intval($value['year']).", ".intval($value['publisher_id']).", ".intval($value['page_count']).", '".$value['date']."' ,".intval($value['genre_id']).")";
+		$sqlQuery = "INSERT INTO `books`(`author_id`,`title`,`year`,`publisher_id`,`page_count`,`receipt_date`,`genre_id`) VALUES(".intval($value['author_id']).", '".$value['title']."', ".intval($value['year']).", ".intval($value['publisher_id']).", ".intval($value['page_count']).", '".$value['receipt_date']."' ,".intval($value['genre_id']).")";
 		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
@@ -166,7 +166,7 @@ class Book extends Database implements IDatabaseFunction {
 	public function deleteById($index) {
 		$con = $this->getConnector();
 		$sqlQuery = "DELETE FROM `books` WHERE `id`=".intval($index);
-		getQueryResult($con, $sqlQuery);
+		$this->getQueryResult($con, $sqlQuery);
 		mysql_close($con);
 	}
 

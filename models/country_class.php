@@ -14,7 +14,7 @@ class Country extends Database implements IDatabaseFunction {
 	const UNKNOWN_STR = "Unknown";
 
 	function __construct() {
-		$this->country = UNKNOWN_STR;		
+		$this->country = self::UNKNOWN_STR;		
 	}
 
 	function write($countryName) {
