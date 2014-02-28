@@ -44,7 +44,7 @@ class Database {
 	 * @param string $sqlQuery
 	 */
 	public function getQueryResult($connection ,$sqlQuery) {
-		return mysql_query($sqlQuery);
+		return mysql_query($sqlQuery,$connection);
 	}
 
 	/**
