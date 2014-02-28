@@ -1,11 +1,12 @@
 <?php
+
 function actionAuthor() {
-	if(isset($_REQUEST['submitAuthor'])) {
+	$flag = true;
+	if(isset($_REQUEST['submitAuthor']) || isset($_REQUEST['updateAuthor'])) {
 		$author['name'] = $_POST['name'];
 		$author['surname'] = $_POST['surname'];
 		$author['birth_date'] = Support::getCorrectDate($_POST['birth_date']);
 		$author['country_id'] = $_POST['countries'];
-		$flag = true;
 		foreach ($author as $value) {
 			if (empty($value)) {
 				$flag = false;
@@ -17,9 +18,21 @@ function actionAuthor() {
 		} else {
 			$author['death_date'] = Support::getCorrectDate($_POST['death_date']);
 		}
+	}
+
+	if(isset($_REQUEST['submitAuthor'])) {
 		if($flag && Support::isName($author['name']) || Support::isName($author['surname']) || Support::isDigit($author['countries'])) {
 			$obj = new Author();
 			$obj->insertValue($author);
+		}
+	}
+	if(isset($_REQUEST['updateAuthor'])) {
+		if($flag && Support::isName($author['name']) || Support::isName($author['surname']) || Support::isDigit($author['countries'])) {
+			$id = $_POST['author_u_id'];
+			if(!empty($id) && Support::isDigit($id)) {
+				$obj = new Author();
+				$obj->updateValue($id, $author);
+			}
 		}
 	}
 	if(isset($_REQUEST['deleteAuthor'])) {
@@ -32,7 +45,8 @@ function actionAuthor() {
 }
 
 function actionBook() {
-	if(isset($_REQUEST['submitBook'])) {
+	$flag = true;
+	if(isset($_REQUEST['submitBook']) || isset($_REQUEST['updateBook'])) {
 		$book['author_id'] = $_POST['authors'];
 		$book['title'] = $_POST['title'];
 		$book['year'] = $_POST['year'];
@@ -40,16 +54,26 @@ function actionBook() {
 		$book['page_count'] = $_POST['page_count'];
 		$book['receipt_date'] = Support::getCorrectDate($_POST['date']);
 		$book['genre_id'] = $_POST['genres'];
-		$flag = true;
 		foreach ($book as $value) {
 			if (empty($value)) {
 				$flag = false;
 				break;
 			}
 		}
+	}
+	if(isset($_REQUEST['submitBook'])) {
 		if($flag && Support::isYear($book['year']) && Support::isName($book['title']) && Support::isDigit($book['publisher_id'])&& Support::isDigit($book['genre_id']) && Support::isDigit($book['author_id']) && Support::isYear($book['year'])) {
 			$obj = new Book();
 			$obj->insertValue($book);
+		}
+	}
+	if(isset($_REQUEST['updateBook'])) {
+		if($flag && Support::isYear($book['year']) && Support::isName($book['title']) && Support::isDigit($book['publisher_id'])&& Support::isDigit($book['genre_id']) && Support::isDigit($book['author_id']) && Support::isYear($book['year'])) {
+			$id = $_POST['book_u_id'];
+			if(!empty($id) && Support::isDigit($id)) {
+				$obj = new Book();
+				$obj-> updateValue($id, $book);
+			}
 		}
 	}
 	if(isset($_REQUEST['deleteBook'])) {
@@ -79,20 +103,31 @@ function actionGenre() {
 }
 
 function actionPublisher() {
-	if(isset($_REQUEST['submitPublisher'])) {
+	$flag = true;
+	if(isset($_REQUEST['submitPublisher']) || isset($_REQUEST['updatePublisher'])) {
 		$publisher['address_id'] = intval($_POST['addresses']);
 		$publisher['editor_id'] = intval($_POST['editors']);
 		$publisher['pub_name'] = $_POST['pub_name'];
-		$flag = true;
 		foreach ($publisher as $value) {
 			if (empty($value) || is_null($value)) {
 				$flag = false;
 				break;
 			}
 		}
+	}
+	if(isset($_REQUEST['submitPublisher'])) {
 		if($flag && Support::isDigit($publisher['address_id']) && Support::isDigit($publisher['editor_id']) && Support::isName($publisher['pub_name'])) {
 			$obj = new Publisher();
 			$obj->insertValue($publisher);
+		}
+	}
+	if(isset($_REQUEST['updatePublisher'])) {
+		if($flag && Support::isDigit($publisher['address_id']) && Support::isDigit($publisher['editor_id']) && Support::isName($publisher['pub_name'])) {
+			$id = $_POST['publisher_u_id'];
+			if(!empty($id) && Support::isDigit($id)) {
+				$obj = new Publisher();
+				$obj-> updateValue($id, $publisher);
+			}
 		}
 	}
 	if(isset($_REQUEST['deletePublisher'])) {
@@ -103,6 +138,7 @@ function actionPublisher() {
 		}
 	}
 }
+
 
 function actionEditor() {
 	if(isset($_REQUEST['submitEditor'])) {
@@ -122,6 +158,7 @@ function actionEditor() {
 	}
 }
 
+
 function actionCountry() {
 	if(isset($_REQUEST['submitCountry'])) {
 		$country = $_POST['country'];
@@ -138,6 +175,7 @@ function actionCountry() {
 		}
 	}
 }
+
 
 function actionAddress() {
 	if(isset($_REQUEST['submitAddress'])) {

@@ -11,7 +11,7 @@ interface  IDatabaseFunction {
 	 * Select from table
 	 * @param string $order
 	 */
-	public function select($order);
+	public function select($order = null);
 
 	/**
 	 *

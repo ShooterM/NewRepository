@@ -23,9 +23,13 @@
 			<?php Country::getList(); ?>
 		<input type='submit' name='submitAuthor' class='button' value='Insert' />
 		<hr />
+		Update for id
+		<br />
+		<input type='text' class='field' name='author_u_id' />
+		<input type='submit' name='updateAuthor' class='button' value='Update' />
+		<hr />
 		<input type='text' class='field' name='author_id' />
 		<input type='submit' name='deleteAuthor' class='button' value='Delete' />
-	</form>
-	<?php if(isset($_REQUEST['submitAuthor'])) print($_POST['countries']); ?>
+	</form>	
 </body>
 </html>
