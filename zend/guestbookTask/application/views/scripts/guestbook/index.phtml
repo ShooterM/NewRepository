@@ -1,0 +1,30 @@
+ <div id='welcome'>
+ 
+ <p><a href="
+	<?php 		
+		echo $this->url(
+		array(
+			'controller' => 'guestbook',
+			'action'     => 'sign'
+		),
+		'default',
+		true) 
+	?>">Sign Our Guestbook</a></p>
+ <h3>
+	Guestbook Entries:
+ </h3> 
+ <dl>
+	<hr />
+    <?php foreach ($this->entries as $entry): ?>
+	<span>
+    <dt><?php echo $this->escape($entry->email) ?></dt>
+    <dd><?php echo $this->escape($entry->comment) ?></dd>
+	</span>	
+    <?php endforeach ?>
+	<hr />
+ </dl>
+<p>
+	<a href='../'>back to main</a>
+</p> 
+
+</div>
