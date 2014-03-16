@@ -1,0 +1,77 @@
+ <div id='welcome'>
+	 <div class='table'> 
+    	<table>
+    		<tr> 
+    			<th>Id</th>
+	    		<th>Country</th>
+	    		<th>City</th>
+	    		<th>Street</th>
+	    		<th>Home</th>
+	    		<th>Post index</th>
+	    		<th class='small-ico'>Insert</th>
+	    		<th class='small-ico'>Update</th>
+	    		<th class='small-ico'>Delete</th>
+    		</tr>
+    		<?php foreach ($this->entries as $entry): ?>
+    		<tr>
+    			<td>
+	    			<?php echo $this->escape($entry->id) ?>
+    			</td>
+    			<td>
+					<?php echo $this->escape($entry->country_id) ?>										
+				</td>
+				<td>
+					<?php echo $this->escape($entry->city) ?>					
+				</td>
+				<td>
+					<?php echo $this->escape($entry->street) ?>					
+				</td>
+				<td>
+					<?php echo $this->escape($entry->home) ?>					
+				</td>
+				<td>
+					<?php echo $this->escape($entry->post_index) ?>					
+				</td>
+				<td class='small-ico'>
+					<a href="<?php 
+							echo $this->url(
+							array(
+								'controller' => 'address',
+								'action'     => 'insert'
+							),
+							'default',
+						true)?>">Insert
+					</a>				
+				</td>
+	    		<td class='small-ico'>
+	    			<a href="<?php 
+							echo $this->url(
+							array(
+								'controller' => 'address',
+								'action'     => 'update'
+							),
+							'default',
+							true)?>
+							<?php echo "?id=".$entry->id."&country_id=".$entry->city."&city=".$entry->city."&street=".$entry->street."&home=".$entry->home."&post_index=".$entry->post_index ?>">Update
+					</a>
+				</td>
+	    		<td class='small-ico'>
+					<a href="<?php 
+						echo $this->url(
+						array(
+							'controller' => 'address',
+							'action'     => 'delete'
+						),
+						'default',
+						true)?>
+						<?php echo "?id=".$entry->id."&country_id=".$entry->city."&city=".$entry->city."&street=".$entry->street."&home=".$entry->home."&post_index=".$entry->post_index ?>">Delete
+					</a>
+				</td>
+    		</tr>
+    		<?php endforeach ?>
+		</table>    
+	</div>	    
+	<p>
+		<a href='../'>back</a>
+ 	</p> 
+</div>

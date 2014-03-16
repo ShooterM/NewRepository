@@ -1,0 +1,76 @@
+  <?php echo $this->doctype() ?>
+ <html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />   
+   <?php 
+		$this->headLink()->appendStylesheet('/styles/style.css');
+		$this->headLink()->appendStylesheet('/styles/datepicker.css');
+		echo $this->headLink();
+   ?>   	
+	<link href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet" />
+	<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+   	<script src="../js/script.js"></script>
+   	<title>ZF Guestbook</title>  
+</head>
+<body>
+<div id="header" style="background-color: #EEEEEE; height: 30px;">
+    <div id="header-logo" style="float: left">
+        <b>Zend Framework Application</b>
+    </div>
+    <div id="header-navigation" style="float: right">
+        <a href="<?php echo $this->url(
+            array('controller'=>'library'),
+            'default',
+            true) ?>">Library guestbook</a>
+     </div>
+</div>
+<div id="menu">
+	<a href="<?php echo $this->url(
+            array('controller'=>'search'),
+            'default',
+            true) ?>">Search</a>
+	
+	<br /> 
+	<a href="<?php echo $this->url(
+            array('controller'=>'book'),
+            'default',
+            true) ?>">Books</a>
+	
+	<br /> 	
+	<a href="<?php echo $this->url(
+            array('controller'=>'author'),
+            'default',
+            true) ?>">Authors</a>
+ 	
+	<br />
+ 	<a href="<?php echo $this->url(
+            array('controller'=>'publisher'),
+            'default',
+            true) ?>">Publishers</a>
+ 
+	<br />
+ 	<a href="<?php echo $this->url(
+            array('controller'=>'genre'),
+            'default',
+            true) ?>">Genres</a>
+	<br />
+ 	<a href="<?php echo $this->url(
+            array('controller'=>'editor'),
+            'default',
+            true) ?>">Editors</a>
+    <br />
+ 	<a href="<?php echo $this->url(
+            array('controller'=>'address'),
+            'default',
+            true) ?>">Addresses</a>
+	<br />
+ 	<a href="<?php echo $this->url(
+            array('controller'=>'country'),
+            'default',
+            true) ?>">Countries</a>
+	<br />
+</div>
+<?php echo $this->layout()->content ?>
+</body>
+ </html>

@@ -1,0 +1,85 @@
+ <div id='welcome'>
+	 <div class='table'> 
+    	<table>
+    		<tr> 
+    			<th>Id</th>
+	    		<th>Author</th>
+	    		<th>Title</th>
+	    		<th>Year</th>
+	    		<th>Publisher</th>
+	    		<th>Page count</th>
+	    		<th>Receipt date</th>
+	    		<th>Genre</th>
+	    		<th class='small-ico'>Insert</th>
+	    		<th class='small-ico'>Update</th>
+	    		<th class='small-ico'>Delete</th>
+    		</tr>
+    		<?php foreach ($this->entries as $entry): ?>
+    		<tr>
+    			<td>
+	    			<?php echo $this->escape($entry->id) ?>
+    			</td>
+    			<td>
+					<?php echo $this->escape($entry->author_id) ?>										
+				</td>
+				<td>
+					<?php echo $this->escape($entry->title) ?>					
+				</td>
+				<td>
+					<?php echo $this->escape($entry->year) ?>					
+				</td>
+				<td>
+	    			<?php echo $this->escape($entry->publisher_id) ?>
+    			</td>
+    			<td>
+					<?php echo $this->escape($entry->page_count) ?>										
+				</td>
+				<td>
+					<?php echo $this->escape($entry->receipt_date) ?>					
+				</td>
+				<td>
+					<?php echo $this->escape($entry->genre_id) ?>					
+				</td>
+				<td class='small-ico'>
+					<a href="<?php 
+						echo $this->url(
+						array(
+							'controller' => 'book',
+							'action'     => 'insert'
+						),
+						'default',
+						true)?>">Insert
+					</a>				
+				</td>
+	    		<td class='small-ico'>
+	    			<a href="<?php 
+						echo $this->url(
+						array(
+							'controller' => 'book',
+							'action'     => 'update'
+						),
+						'default',
+						true)?>
+						<?php echo "?id=".$entry->id."&author_id=".$entry->author_id."&title=".$entry->title."&year=".$entry->year."&publisher_id=".$entry->publisher_id."&page_count=".$entry->page_count."&receipt_date=".$entry->receipt_date."&genre_id=".$entry->genre_id ?>">Update
+					</a>
+				</td>
+	    		<td class='small-ico'>
+					<a href="<?php 
+						echo $this->url(
+						array(
+							'controller' => 'book',
+							'action'     => 'delete'
+						),
+						'default',
+						true)?>
+						<?php echo "?id=".$entry->id."&author_id=".$entry->author_id."&title=".$entry->title."&year=".$entry->year."&publisher_id=".$entry->publisher_id."&page_count=".$entry->page_count."&receipt_date=".$entry->receipt_date."&genre_id=".$entry->genre_id ?>">Delete
+					</a>
+				</td>
+    		</tr>
+    		<?php endforeach ?>
+		</table>
+	</div>	    
+	<p>
+		<a href='../'>back</a>
+ 	</p> 
+</div>

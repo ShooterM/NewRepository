@@ -1,0 +1,61 @@
+ <div id='welcome'>
+	<div class='table'>
+    	<table>
+    		<tr> 
+    			<th>Id</th>
+	    		<th>Country</th>
+	    		<th class='small-ico'>Insert</th>
+	    		<th class='small-ico'>Update</th>
+	    		<th class='small-ico'>Delete</th>
+    		</tr>
+    		<?php foreach ($this->entries as $entry): ?>
+    		<tr>
+    			<td>
+	    			<?php echo $this->escape($entry->id) ?>
+    			</td>
+    			<td>
+					<?php echo $this->escape($entry->country) ?>
+				</td>
+				<td class='small-ico'>
+					<a href="<?php 
+							echo $this->url(
+							array(
+								'controller' => 'country',
+								'action'     => 'insert'
+							),
+							'default',
+						true)?>">Insert
+					</a>				
+				</td>
+	    		<td class='small-ico'>
+	    			<a href="<?php 
+							echo $this->url(
+							array(
+								'controller' => 'country',
+								'action'     => 'update'
+							),
+							'default',
+							true)?>
+							<?php echo "?id=".$entry->id."&country=".$entry->country ?>">Update
+					</a>
+				</td>
+	    		<td class='small-ico'>
+					<a href="<?php 
+						echo $this->url(
+						array(
+							'controller' => 'country',
+							'action'     => 'delete'
+						),
+						'default',
+						true)?>
+						<?php echo "?id=".$entry->id."&country=".$entry->country ?>">Delete
+					</a>
+				</td>
+    		</tr>
+    		<?php endforeach ?>
+    	</table>    
+	</div>  
+	<p>
+		<a href='../'>back</a>
+ 	</p> 
+</div>

@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+
+#ui-datepicker-div {
+	width: 200px;
+}
+
+.ui-datepicker-header,.ui-datepicker-calendar, span {
+	width: 200px;
+}

@@ -1,0 +1,110 @@
+body {
+	margin: auto;
+	text-align: center;
+	background: #fff;
+	color: #6b6b6b;
+}
+
+h1 {
+	padding-top: 20px;
+}
+
+textarea {
+	height: 50px;
+	width: 400px;
+}
+
+hr {
+	width: 200px;
+	color: #7b7b7b;
+}
+
+dt,dd {
+	font-weight: bold;
+	color: #7b7b7b;
+}
+
+span {
+	display: block;
+	background-color: #fff;
+	border-radius: 10px;
+	width: 300px;
+	margin: auto;
+	margin-top: 10px;
+	margin: 10px auto auto 38%;
+}
+
+#header {
+	width: 850px;
+	margin: auto;
+}
+
+#welcome {
+	background: #eee;
+	width: 850px;
+	min-height: 400px;
+	margin: auto;
+}
+
+#header a,#header a:visited {
+	color: #74b53c;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#header a:hover,#header a:focus {
+	color: #00BFFF;
+	transition: color 0.3s linear;
+}
+
+#header,#welcome a {
+	color: #74af3c;
+}
+
+#menu {
+	text-align: left;
+	float: left;
+	margin-left: 233px;
+	margin-top: 28px;
+	min-height: 600px;
+	width: 90px;
+}
+
+#menu a,#menu a:link,#menu a:visited {
+	color: #3BCBFC;
+	text-decoration: none;
+	font-size: 17px;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#menu a:hover {
+	color: #74AF3C;
+	transition: color 0.3s linear;
+	letter-spacing: 1px;
+}
+
+#header-navigation,#header-logo {
+	padding: 3px 22px 0px 22px;
+}
+
+td,th {
+	border-width: 1px;
+	border-style: solid;
+}
+
+table {
+	border-width: 1px;
+	border-style: solid;
+	border-collapse: collapse;
+	margin: auto;
+	background: #fff;
+}
+
+.table {
+	margin-top: 20px;
+	padding-top: 13px;
+}
+
+.small-ico { 
+	/*display: none;*/	
+}

@@ -1,0 +1,69 @@
+ <div id='welcome'>
+	 <div class='table'> 
+    	<table>
+    		<tr> 
+    			<th>Id</th>
+	    		<th>Publisher</th>
+	    		<th>Address</th>
+	    		<th>Editor</th>
+	    		<th class='small-ico'>Insert</th>
+	    		<th class='small-ico'>Update</th>
+	    		<th class='small-ico'>Delete</th>
+    		</tr>
+    		<?php foreach ($this->entries as $entry): ?>
+    		<tr>
+    			<td>
+	    			<?php echo $this->escape($entry->id) ?>
+    			</td>
+    			<td>
+					<?php echo $this->escape($entry->pub_name) ?>										
+				</td>
+				<td>
+					<?php echo $this->escape($entry->address) ?>					
+				</td>
+				<td>
+					<?php echo $this->escape($entry->editor_id) ?>					
+				</td>
+				<td class='small-ico'>
+					<a href="<?php 
+							echo $this->url(
+							array(
+								'controller' => 'publisher',
+								'action'     => 'insert'
+							),
+							'default',
+						true)?>">Insert
+					</a>				
+				</td>
+	    		<td class='small-ico'>
+	    			<a href="<?php 
+							echo $this->url(
+							array(
+								'controller' => 'publisher',
+								'action'     => 'update'
+							),
+							'default',
+							true)?>
+							<?php echo "?id=".$entry->id."&pub_name=".$entry->pub_name."&address=".$entry->address."&editor_id=".$entry->editor_id ?>">Update
+					</a>
+				</td>
+	    		<td class='small-ico'>
+					<a href="<?php 
+						echo $this->url(
+						array(
+							'controller' => 'publisher',
+							'action'     => 'delete'
+						),
+						'default',
+						true)?>
+						<?php echo "?id=".$entry->id."&pub_name=".$entry->pub_name."&address=".$entry->address."&editor_id=".$entry->editor_id ?>">Delete
+					</a>
+				</td>
+    		</tr>
+    		<?php endforeach ?>
+		</table>    
+	</div>	    
+	<p>
+		<a href='../'>back</a>
+ 	</p> 
+</div>

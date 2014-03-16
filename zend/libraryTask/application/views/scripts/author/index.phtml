@@ -1,0 +1,77 @@
+ <div id='welcome'>
+	 <div class='table'> 
+    	<table>
+    		<tr> 
+    			<th>Id</th>
+	    		<th>Name</th>
+	    		<th>Surname</th>
+	    		<th>Birth date</th>
+	    		<th>Death date</th>
+	    		<th>Country</th>
+	    		<th class='small-ico'>Insert</th>
+	    		<th class='small-ico'>Update</th>
+	    		<th class='small-ico'>Delete</th>
+    		</tr>
+    		<?php foreach ($this->entries as $entry): ?>
+    		<tr>
+    			<td>
+	    			<?php echo $this->escape($entry->id) ?>
+    			</td>
+    			<td>
+					<?php echo $this->escape($entry->name) ?>										
+				</td>
+				<td>
+					<?php echo $this->escape($entry->surname) ?>					
+				</td>
+				<td>
+	    			<?php echo $this->escape($entry->birth_date) ?>
+    			</td>
+    			<td>
+					<?php echo $this->escape($entry->death_date) ?>										
+				</td>
+				<td>
+					<?php echo $this->escape($entry->country_id) ?>					
+				</td>
+				<td class='small-ico'>
+					<a href="<?php 
+							echo $this->url(
+							array(
+								'controller' => 'author',
+								'action'     => 'insert'
+							),
+							'default',
+						true)?>">Insert
+					</a>				
+				</td>
+	    		<td class='small-ico'>
+	    			<a href="<?php 
+							echo $this->url(
+							array(
+								'controller' => 'author',
+								'action'     => 'update'
+							),
+							'default',
+							true)?>
+							<?php echo "?id=".$entry->id."&name=".$entry->name."&surname=".$entry->surname."&birth_date=".$entry->birth_date."&death_date=".$entry->death_date."&country_id=".$entry->country_id ?>">Update
+					</a>
+				</td>
+	    		<td class='small-ico'>
+					<a href="<?php 
+						echo $this->url(
+						array(
+							'controller' => 'author',
+							'action'     => 'delete'
+						),
+						'default',
+						true)?>
+						<?php echo "?id=".$entry->id."&name=".$entry->name."&surname=".$entry->surname."&birth_date=".$entry->birth_date."&death_date=".$entry->death_date."&country_id=".$entry->country_id ?>">Delete
+					</a>
+				</td>
+    		</tr>
+    		<?php endforeach ?>
+		</table>    
+	</div>	    
+	<p>
+		<a href='../'>back</a>
+ 	</p> 
+</div>
