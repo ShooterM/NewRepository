@@ -4,6 +4,7 @@ class Application_Model_Address
 {
 	protected $_id;
 	protected $_country_id;
+	protected $_country_val;
 	protected $_city;
 	protected $_street;
 	protected $_home;
@@ -49,7 +50,7 @@ class Application_Model_Address
 
 	function setId($id)
 	{
-		$this->_id = (int)$id;
+		$this->_id = $id;
 		return $this;
 	}
 
@@ -69,6 +70,17 @@ class Application_Model_Address
 		return $this->_country_id;
 	}
 
+	function setCountry_val($country_val)
+	{
+		$this->_country_val = $country_val;
+		return $this;
+	}
+
+	function getCountry_val()
+	{
+		return $this->_country_val;
+	}
+	
 	function getCity()
 	{
 		return $this->_city;
@@ -144,6 +156,11 @@ class Application_Model_Address
 
 	}
 
+	public function fetchAll1()
+	{
+		return $this->getMapper()->fetchAll1();
+	}
+	
 	public function fetchAll()
 	{
 		return $this->getMapper()->fetchAll();

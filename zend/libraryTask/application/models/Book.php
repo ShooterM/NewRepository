@@ -168,6 +168,11 @@ class Application_Model_Book
 
 	}
 
+	public function fetchOne($id)
+	{
+		return $this->getMapper()->fetchOne($id);
+	}
+	
 	public function fetchAll()
 	{
 		return $this->getMapper()->fetchAll();

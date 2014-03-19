@@ -61,6 +61,20 @@ class Application_Model_PublisherMapper
                 ->setEditor_id($row->editor_id);
     }
     
+	public function fetchOne($id)
+    {
+        $resultSet = $this->getDbTable()->select()->from('publishers',array('id','pub_name'))->where('id = ?', $id);
+        $entries   = array();
+        foreach ($resultSet as $row) {
+            $publisher = new Application_Model_Publisher();
+            $publisher->setId($row->id)          
+                  	->setPub_name($row->pub_name)
+                  	->setMapper($this);
+            $entries[] = $publisher;
+        }
+        return $entries;
+    }
+    
 	public function fetchAll()
     {
         $resultSet = $this->getDbTable()->fetchAll();

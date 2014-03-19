@@ -105,6 +105,11 @@ table {
 	padding-top: 13px;
 }
 
-.small-ico { 
-	/*display: none;*/	
+.combobox {
+	height: 23px;
+    width: 146px;	
+}
+
+.small-ico { /*display: none;*/
+	
 }

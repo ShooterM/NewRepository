@@ -1,41 +1,48 @@
 <?php
- 
+
 class Application_Form_Search_Search extends Zend_Form
 {
-    public function init()
-    {
-	    $this->setMethod('post');
+	public function init()
+	{
+		$this->setMethod('post');
 
-        $this->addElement('text', 'pub_name', array(
-            'label'      => 'Publisher:',
+		$this->addElement('text', 'value', array(
+            'label'      => 'Value:',
             'required'   => true,
             'filters'    => array('StringTrim'),            
-        ));       
-        
-        // $this = new Zend_Form_Element_Select('table');
-       
-        $this->addElement('select','table',array(
-        	'label'		 => 'Select some table',
-        	'required'	 => true,
-        	'options'  => array(
-        						'author' 	=> 'author',
-        						'publisher' => 'publisher',
-        						'book'		=> 'book',
-        						'address'	=> 'address',
-        						'editor'	=> 'editor',
-        						'genre'		=> 'genre',
-        						'country'	=> 'country',
-        				),
-        ));
-       
-        $this->addElement('submit', 'Insert', array(
+		));
+
+		$this->addSearchSelect();
+
+		$this->addElement('submit', 'search', array(
             'ignore'   => true,
             'label'    => 'Search',        	
-        ));
-        
-        // And finally add some CSRF protection
-        $this->addElement('hash', 'csrf', array(
+		));
+
+		// And finally add some CSRF protection
+		$this->addElement('hash', 'csrf', array(
             'ignore' => true,
-        ));
-    }
+		));
+	}
+
+	public function addSearchSelect()
+	{
+		$orderList = array(
+     		'book' => 'book',
+     		'author' => 'author',     
+		 	'publisher' => 'publisher',
+		 );
+		 	
+		 $orderFirst = $this->createElement('select','table',array(
+       'Class' => 'combobox',
+       'id' => 'orderfirst',
+       'multiOptions' => $orderList,
+       'decorators' => array('ViewHelper')
+		 ));
+		 	
+		 $orderFirst->setRequired(false)
+		 ->addValidator('InArray',false,array('haystack' => array_keys($orderList)));
+		 	
+		 $this->addElement($orderFirst);
+	}
 }

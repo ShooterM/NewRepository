@@ -120,6 +120,11 @@ class Application_Model_Publisher
 
 	}
 
+	public function fetchOne($id)
+	{
+		return $this->getMapper()->fetchOne($id);
+	}
+	
 	public function fetchAll()
 	{
 		return $this->getMapper()->fetchAll();

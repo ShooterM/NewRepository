@@ -69,6 +69,20 @@ class Application_Model_BookMapper
                ->setPage_count($row->page_count)
                ->setYear($row->year);
     }
+
+	public function fetchOne($id)
+    {
+        $resultSet = $this->getDbTable()->select()->from('books',array('id','title'))->where('id = ?', $id);
+        $entries   = array();
+        foreach ($resultSet as $row) {
+            $book = new Application_Model_Book();
+            $book  	->setId($row->id)
+               		->setTitle($row->title)
+               		->setMapper($this);
+            $entries[] = $book;
+        }
+        return $entries;
+    }
     
 	public function fetchAll()
     {

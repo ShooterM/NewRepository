@@ -69,6 +69,21 @@ class Application_Model_AuthorMapper
                ->setDeath_date($row->death_date)
                ->setCountry_id($row->country_id);
     }
+        
+	public function fetchOne($id)
+    {
+        $resultSet = $this->getDbTable()->select()->from('authors',array('id','name','surname'))->where('id = ?', $id);
+        $entries   = array();
+        foreach ($resultSet as $row) {
+            $author = new Application_Model_Author();
+            $author->setId($row->id)          
+                   ->setName($row->name)
+                   ->setSurname($row->surname)
+                   ->setMapper($this);
+            $entries[] = $author;
+        }
+        return $entries;
+    }
     
 	public function fetchAll()
     {

@@ -65,6 +65,35 @@ class Application_Model_AddressMapper
                 ->setPost_index($row->post_index);
     }
     
+	public function fetchAll1()
+    {
+        $resultSet = $this->getDbTable()->select()
+        -> from(array('a' => 'addresses'),
+        		array(
+        		'a.id',
+        		'country_id',
+        		'city',
+        		'street',
+        		'home',
+        		'post_index',
+        		'c.country')
+        )->join(array('c' => 'countries'),'c.id = a.country_id');
+        $entries   = array();
+        foreach ($resultSet as $row) {
+            $entry = new Application_Model_Address();
+            $entry->setId($row->id)
+                  ->setCountry_id($row->country_id)
+                  ->setCountry_val($row->country)
+                  ->setCity($row->city)
+                  ->setStreet($row->street)
+                  ->setHome($row->home)
+                  ->setPost_index($row->post_index)
+                  ->setMapper($this);
+            $entries[] = $entry;
+        }
+        return $entries;
+    }
+    
 	public function fetchAll()
     {
         $resultSet = $this->getDbTable()->fetchAll();

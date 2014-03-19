@@ -1,0 +1,29 @@
+ <div id='welcome'>
+
+	<?php $this->form->setAction($this->url()); echo $this->form; ?>
+ 	
+ 	<div class='table'> 
+    	<table>
+    		<tr> 
+    			<th>Id</th>
+	    		<th>Value</th>
+    		</tr>
+    		<?php if ($_POST['table'] === "publisher") ?>
+    		<?php foreach ($this->entries as $entry): ?>
+    		<tr>    			
+    			<td>
+	    			<?php echo $this->escape($entry->id) ?>
+    			</td>
+    			<td>
+					<?php echo $this->escape($entry->pub_name) ?>										
+				</td>				
+    		</tr>		
+    		<?php endforeach ?>   		
+		</table>    
+	</div>
+	
+	<p>
+		<a href='../'>back</a>
+ 	</p>
+</div>
+
