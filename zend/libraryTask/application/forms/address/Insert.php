@@ -6,12 +6,8 @@ class Application_Form_Address_Insert extends Zend_Form
     {
 	    $this->setMethod('post');
 
-	    $this->addElement('text', 'country_id', array(
-            'label'      => 'Country id:',
-            'required'   => true,
-            'filters'    => array('StringTrim'),            
-        ));
-	    
+        $this->addCountrySelect();
+        
         $this->addElement('text', 'city', array(
             'label'      => 'City:',
             'required'   => true,
@@ -46,4 +42,22 @@ class Application_Form_Address_Insert extends Zend_Form
             'ignore' => true,
         ));
     }
+    
+	public function addCountrySelect()
+	{
+		$countries = new Application_Model_Country();
+		$orderList = $countries->returnArray();
+		 	
+		$orderFirst = $this->createElement('select','country_id',array(
+       	'Class' => 'combobox',
+       	'id' => 'orderfirst',
+       	'multiOptions' => $orderList,
+       	'decorators' => array('ViewHelper')
+		));
+		 	
+		 $orderFirst->setRequired(false)
+		 ->addValidator('InArray',false,array('haystack' => array_keys($orderList)));
+		 	
+		 $this->addElement($orderFirst);
+	}
 }

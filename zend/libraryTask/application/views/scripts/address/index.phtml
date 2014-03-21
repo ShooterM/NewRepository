@@ -18,7 +18,7 @@
 	    			<?php echo $this->escape($entry->id) ?>
     			</td>
     			<td>
-					<?php echo $this->escape($entry->country_id) ?>										
+					<?php echo $this->escape($entry->country) ?>										
 				</td>
 				<td>
 					<?php echo $this->escape($entry->city) ?>					
@@ -52,7 +52,7 @@
 							),
 							'default',
 							true)?>
-							<?php echo "?id=".$entry->id."&country_id=".$entry->city."&city=".$entry->city."&street=".$entry->street."&home=".$entry->home."&post_index=".$entry->post_index ?>">Update
+							<?php echo "?id=".$entry->id."&country=".$entry->country."&country_id=".$entry->country_id."&city=".$entry->city."&street=".$entry->street."&home=".$entry->home."&post_index=".$entry->post_index ?>">Update
 					</a>
 				</td>
 	    		<td class='small-ico'>
@@ -64,10 +64,10 @@
 						),
 						'default',
 						true)?>
-						<?php echo "?id=".$entry->id."&country_id=".$entry->city."&city=".$entry->city."&street=".$entry->street."&home=".$entry->home."&post_index=".$entry->post_index ?>">Delete
+						<?php echo "?id=".$entry->id."&country=".$entry->country."&country_id=".$entry->country_id."&city=".$entry->city."&street=".$entry->street."&home=".$entry->home."&post_index=".$entry->post_index ?>">Delete
 					</a>
 				</td>
-    		</tr>
+    		</tr>    		
     		<?php endforeach ?>
 		</table>    
 	</div>	    

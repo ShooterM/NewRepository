@@ -5,7 +5,7 @@ class AuthorController extends Zend_Controller_Action
 	public function indexAction()
 	{
 		$author = new Application_Model_Author();
-		$this->view->entries = $author->fetchAll();
+		$this->view->entries = $author->selectAll();
 	}
 	
 	public function insertAction()

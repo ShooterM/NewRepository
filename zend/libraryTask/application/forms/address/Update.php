@@ -12,14 +12,9 @@ class Application_Form_Address_Update extends Zend_Form
             'required'   => true,
             'filters'    => array('StringTrim'),            
         ));
-	    
-	    $this->addElement('text', 'country_id', array(
-            'label'      => 'Country id:',
-	    	'value'		 => $_GET['country_id'],
-            'required'   => true,
-            'filters'    => array('StringTrim'),            
-        ));
-	    
+        
+        $this->addCountrySelect();
+
         $this->addElement('text', 'city', array(
             'label'      => 'City:',
         	'value'		 => $_GET['city'],
@@ -41,15 +36,15 @@ class Application_Form_Address_Update extends Zend_Form
             'filters'    => array('StringTrim'),            
         ));
         
-        $this->addElement('text', 'Post index', array(
-            'label'      => 'Post_index:',
+        $this->addElement('text', 'post_index', array(
+            'label'      => 'Post index:',
         	'value'		 => $_GET['post_index'],
             'required'   => true,
             'filters'    => array('StringTrim'),            
         ));
         
         // add
-        $this->addElement('submit', 'Update', array(
+        $this->addElement('submit', 'Ok', array(
             'ignore'   => true,
         	'label'    => 'Ok',
         ));
@@ -59,4 +54,22 @@ class Application_Form_Address_Update extends Zend_Form
             'ignore' => true,
         ));
     }
+    
+	public function addCountrySelect()
+	{
+		$countries = new Application_Model_Country();
+		$orderList = $countries->returnArray();
+		 	
+		$orderFirst = $this->createElement('select','country_id',array(		
+       	'Class' => 'combobox',
+       	'id' => 'orderfirst',
+       	'multiOptions' => $orderList,
+       	'decorators' => array('ViewHelper')
+		));
+		 	
+		 $orderFirst->setRequired(false)
+		 ->addValidator('InArray',false,array('haystack' => array_keys($orderList)));
+		 	
+		 $this->addElement($orderFirst);
+	}
 }

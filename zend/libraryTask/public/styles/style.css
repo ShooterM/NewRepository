@@ -34,7 +34,7 @@ span {
 	margin: 10px auto auto 38%;
 }
 
-#header {
+#header,#footer {
 	width: 850px;
 	margin: auto;
 }
@@ -42,8 +42,8 @@ span {
 #welcome {
 	background: #eee;
 	width: 850px;
-	min-height: 400px;
-	margin: auto;
+	min-height: 500px;
+	margin: auto;	
 }
 
 #header a,#header a:visited {
@@ -57,7 +57,7 @@ span {
 	transition: color 0.3s linear;
 }
 
-#header,#welcome a {
+#header,#footer,#welcome a {
 	color: #74af3c;
 }
 
@@ -105,9 +105,20 @@ table {
 	padding-top: 13px;
 }
 
+#footer {
+	margin-top: 15px;
+	background-color: #eee;
+	height: 30px;
+	padding-top: 10px;
+	font-weight: bold;
+	font-size: 12px;
+	letter-spacing: 1px;	
+}
+
 .combobox {
 	height: 23px;
-    width: 146px;	
+	width: 146px;
+	margin-top: 20px;
 }
 
 .small-ico { /*display: none;*/

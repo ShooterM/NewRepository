@@ -5,7 +5,7 @@ class AddressController extends Zend_Controller_Action
 	public function indexAction()
 	{
 		$address = new Application_Model_Address();
-		$this->view->entries = $address->fetchAll();
+		$this->view->entries = $address->selectAll();		
 	}
 	
 	public function insertAction()

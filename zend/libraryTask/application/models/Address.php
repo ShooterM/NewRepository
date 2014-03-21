@@ -4,7 +4,7 @@ class Application_Model_Address
 {
 	protected $_id;
 	protected $_country_id;
-	protected $_country_val;
+	protected $_country;
 	protected $_city;
 	protected $_street;
 	protected $_home;
@@ -50,7 +50,7 @@ class Application_Model_Address
 
 	function setId($id)
 	{
-		$this->_id = $id;
+		$this->_id = (int)$id;
 		return $this;
 	}
 
@@ -70,15 +70,15 @@ class Application_Model_Address
 		return $this->_country_id;
 	}
 
-	function setCountry_val($country_val)
+	function setCountry($country)
 	{
-		$this->_country_val = $country_val;
+		$this->_country = (string)$country;
 		return $this;
 	}
 
-	function getCountry_val()
+	function getCountry()
 	{
-		return $this->_country_val;
+		return $this->_country;
 	}
 	
 	function getCity()
@@ -153,12 +153,16 @@ class Application_Model_Address
 	{
 		$this->getMapper()->find($id, $this);
 		return $this;
-
 	}
 
-	public function fetchAll1()
+	public function returnArray()
 	{
-		return $this->getMapper()->fetchAll1();
+		return $this->getMapper()->returnArray();
+	}
+	
+	public function selectAll()
+	{
+		return $this->getMapper()->selectAll();
 	}
 	
 	public function fetchAll()

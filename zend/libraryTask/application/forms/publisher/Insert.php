@@ -11,18 +11,10 @@ class Application_Form_Publisher_Insert extends Zend_Form
             'required'   => true,
             'filters'    => array('StringTrim'),            
         ));
+
+        $this->addSelect("address");
         
-        $this->addElement('text', 'address', array(
-            'label'      => 'Address:',
-            'required'   => true,
-            'filters'    => array('StringTrim'),            
-        ));
-        
-        $this->addElement('text', 'editor_id', array(
-            'label'      => 'Editor:',
-            'required'   => true,
-            'filters'    => array('StringTrim'),            
-        ));
+        $this->addSelect("editor");
         
         // add
         $this->addElement('submit', 'Insert', array(
@@ -35,4 +27,28 @@ class Application_Form_Publisher_Insert extends Zend_Form
             'ignore' => true,
         ));
     }
+    
+	public function addSelect($table = null)
+	{
+		if ($table === "address") {
+			$address = new Application_Model_Address();
+			$orderList = $address->returnArray();
+			$selectName = "address";
+		} else {
+			$editor = new Application_Model_Editor();
+			$orderList = $editor->returnArray();
+			$selectName = "editor_id";
+		}
+		$orderFirst = $this->createElement('select',$selectName,array(
+       	'Class' => 'combobox',
+       	'id' => 'orderfirst',
+       	'multiOptions' => $orderList,
+       	'decorators' => array('ViewHelper')
+		));
+		 	
+		 $orderFirst->setRequired(false)
+		 ->addValidator('InArray',false,array('haystack' => array_keys($orderList)));
+		 	
+		 $this->addElement($orderFirst);
+	}
 }

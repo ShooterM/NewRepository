@@ -108,6 +108,11 @@ class Application_Model_Editor
 
 	}
 
+	public function returnArray()
+	{
+		return $this->getMapper()->returnArray();
+	}
+	
 	public function fetchAll()
 	{
 		return $this->getMapper()->fetchAll();

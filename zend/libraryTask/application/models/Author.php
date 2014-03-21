@@ -8,6 +8,7 @@ class Application_Model_Author
 	protected $_birth_date;
 	protected $_death_date;
 	protected $_country_id;
+	protected $_country;
 	protected $_mapper;
 
 	public function __construct(array $options = null)
@@ -113,7 +114,17 @@ class Application_Model_Author
 		return $this;
 	}
 
+	function getCountry()
+	{
+		return $this->_country;
+	}
 
+	function setCountry($country)
+	{
+		$this->_country = $country; 
+		return $this;
+	}
+	
 	public function setMapper($mapper)
 	{
 		$this->_mapper = $mapper;
@@ -145,9 +156,19 @@ class Application_Model_Author
 
 	}
 
-	public function fetchOne($id)
+	public function fetchOne($value)
 	{
-		return $this->getMapper()->fetchOne($id);
+		return $this->getMapper()->fetchOne($value);
+	}
+	
+	public function selectAll()
+	{
+		return $this->getMapper()->selectAll();
+	}
+	
+	public function returnArray()
+	{
+		return $this->getMapper()->returnArray();
 	}
 	
 	public function fetchAll()

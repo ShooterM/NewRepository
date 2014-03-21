@@ -13,12 +13,7 @@ class Application_Form_Book_Update extends Zend_Form
             'filters'    => array('StringTrim'),            
         ));
 	    
-        $this->addElement('text', 'author_id', array(
-            'label'      => 'Author:',
-        	'value'		 => $_GET['author_id'],
-            'required'   => true,
-            'filters'    => array('StringTrim'),            
-        ));
+        $this->addSelect("author");
         
         $this->addElement('text', 'title', array(
             'label'      => 'Title:',
@@ -27,12 +22,7 @@ class Application_Form_Book_Update extends Zend_Form
             'filters'    => array('StringTrim'),            
         ));
         
-        $this->addElement('text', 'publisher_id', array(
-            'label'      => 'Publisher:',
-        	'value'		 => $_GET['publisher_id'],        	
-            'required'   => true,
-            'filters'    => array('StringTrim'),            
-        ));
+        $this->addSelect("publisher");
         
         $this->addElement('text', 'year', array(
             'label'      => 'Year:',        
@@ -56,12 +46,7 @@ class Application_Form_Book_Update extends Zend_Form
             'filters'    => array('StringTrim'),            
         ));
         
-        $this->addElement('text', 'genre_id', array(
-            'label'      => 'Genre:',        	
-        	'value'		 => $_GET['genre_id'],	
-            'required'   => false,
-            'filters'    => array('StringTrim'),            
-        ));
+        $this->addSelect("genre");
         
         // add
         $this->addElement('submit', 'Update', array(
@@ -74,4 +59,34 @@ class Application_Form_Book_Update extends Zend_Form
             'ignore' => true,
         ));
     }
+    
+	public function addSelect($table = null)
+	{
+		if ($table === "author") {
+			$author = new Application_Model_Author();
+			$orderList = $author->returnArray();
+			$selectName = "author_id";
+		} else {
+			if ($table === "publisher") {
+				$publisher = new Application_Model_Publisher();
+				$orderList = $publisher->returnArray();
+				$selectName = "publisher_id";
+			} else {
+				$genre = new Application_Model_Genre();
+				$orderList = $genre->returnArray();
+				$selectName = "genre_id";				
+			}
+		}
+		$orderFirst = $this->createElement('select',$selectName,array(
+       	'Class' => 'combobox',
+       	'id' => 'orderfirst',
+       	'multiOptions' => $orderList,
+       	'decorators' => array('ViewHelper')
+		));
+		 	
+		 $orderFirst->setRequired(false)
+		 ->addValidator('InArray',false,array('haystack' => array_keys($orderList)));
+		 	
+		 $this->addElement($orderFirst);
+	}
 }

@@ -5,7 +5,7 @@ class PublisherController extends Zend_Controller_Action
 	public function indexAction()
 	{
 		$publisher = new Application_Model_Publisher();
-		$this->view->entries = $publisher->fetchAll();
+		$this->view->entries = $publisher->selectAll();
 	}
 	
 	public function insertAction()

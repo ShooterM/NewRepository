@@ -57,6 +57,16 @@ class Application_Model_EditorMapper
         $editor->setId($row->id)
                 ->setName($row->name)
                 ->setSurname($row->surname);
+    }    
+    
+	public function returnArray()
+    {
+        $resultSet = $this->getDbTable()->fetchAll();
+        $entries   = array();
+        foreach ($resultSet as $row) {
+            $entries[$row->id] = $row->name . ' ' . $row->surname;                  
+        }
+        return $entries;
     }
     
 	public function fetchAll()

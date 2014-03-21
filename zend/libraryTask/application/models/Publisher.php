@@ -5,7 +5,9 @@ class Application_Model_Publisher
 	protected $_id;
 	protected $_pub_name;
 	protected $_address;
+	protected $_full_address;
 	protected $_editor_id;
+	protected $_full_editor;
 	protected $_mapper;
 
 	public function __construct(array $options = null)
@@ -88,7 +90,29 @@ class Application_Model_Publisher
 	{
 		return $this->_editor_id;
 	}
+	
+	function setFull_address($addres)
+	{
+		$this->_full_address = (string)$addres;
+		return $this;
+	}
 
+	function getFull_address()
+	{
+		return $this->_full_address;
+	}
+	
+	function setFull_editor($editor)
+	{
+		$this->_full_editor = (string)$editor;
+		return $this;
+	}
+
+	function getFull_editor()
+	{
+		return $this->_full_editor;
+	}
+	
 	public function setMapper($mapper)
 	{
 		$this->_mapper = $mapper;
@@ -120,6 +144,16 @@ class Application_Model_Publisher
 
 	}
 
+	public function selectAll()
+	{
+		return $this->getMapper()->selectAll();
+	}
+	
+	public function returnArray()
+	{
+		return $this->getMapper()->returnArray();
+	}
+	
 	public function fetchOne($id)
 	{
 		return $this->getMapper()->fetchOne($id);

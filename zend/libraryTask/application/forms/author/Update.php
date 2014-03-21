@@ -43,12 +43,7 @@ class Application_Form_Author_Update extends Zend_Form
             'filters'    => array('StringTrim'),            
         ));
         
-        $this->addElement('text', 'country_id', array(
-            'label'      => 'Country:',      
-        	'value'		 => $_GET['country_id'],  	
-            'required'   => true,
-            'filters'    => array('StringTrim'),            
-        ));
+        $this->addSelect();
         
         // add
         $this->addElement('submit', 'Update', array(
@@ -61,4 +56,22 @@ class Application_Form_Author_Update extends Zend_Form
             'ignore' => true,
         ));
     }
+    
+	public function addSelect()
+	{
+		$countries = new Application_Model_Country();
+		$orderList = $countries->returnArray();
+		 	
+		$orderFirst = $this->createElement('select','country_id',array(
+       	'Class' => 'combobox',
+       	'id' => 'orderfirst',
+       	'multiOptions' => $orderList,
+       	'decorators' => array('ViewHelper')
+		));
+		 	
+		 $orderFirst->setRequired(false)
+		 ->addValidator('InArray',false,array('haystack' => array_keys($orderList)));
+		 	
+		 $this->addElement($orderFirst);
+	}
 }

@@ -57,6 +57,16 @@ class Application_Model_GenreMapper
                 ->setGenre($row->genre);
     }
     
+	public function returnArray()
+    {
+        $resultSet = $this->getDbTable()->fetchAll();
+        $entries   = array();
+        foreach ($resultSet as $row) {
+            $entries[$row->id] = $row->genre;
+        }
+        return $entries;
+    }
+    
 	public function fetchAll()
     {
         $resultSet = $this->getDbTable()->fetchAll();

@@ -57,6 +57,16 @@ class Application_Model_CountryMapper
                 ->setCountry($row->country);
     }
     
+	public function returnArray()
+    {
+        $resultSet = $this->getDbTable()->fetchAll();
+        $entries   = array();
+    	foreach ($resultSet as $row) {
+            $entries[$row->id] = $row->country;            
+        }
+        return $entries;
+    }
+    
 	public function fetchAll()
     {
         $resultSet = $this->getDbTable()->fetchAll();

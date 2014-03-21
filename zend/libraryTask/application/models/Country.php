@@ -96,6 +96,11 @@ class Application_Model_Country
 
 	}
 
+	public function returnArray()
+	{
+		return $this->getMapper()->returnArray();
+	}
+	
 	public function fetchAll()
 	{
 		return $this->getMapper()->fetchAll();

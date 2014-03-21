@@ -75,6 +75,44 @@ class Application_Model_PublisherMapper
         return $entries;
     }
     
+	public function selectAll()
+    {
+        $sql = $this->getDbTable()->getAdapter()->select()
+        			->from(array('p' => 'publishers'),array(
+        				'id',	
+        				'pub_name',
+        				'address',
+        				'editor_id'
+        			))
+        			->join(array('a' => 'addresses'), 'a.id = p.address', array('adr' => "CONCAT_WS(', ',c.country, a.city,a.home,a.post_index)"))
+        			->join(array('c' => 'countries'), 'a.country_id = c.id', array('country'))
+        			->join(array('e' => 'editors'),'p.editor_id = e.id', array('edn' => "CONCAT_WS(' ',e.name,e.surname)"));        			
+        $resultSet = $this->getDbTable()->getAdapter()->fetchAll($sql);
+        $entries   = array();
+        foreach ($resultSet as $row) {
+            $publisher = new Application_Model_Publisher();
+            $publisher->setId($row['id'])
+                  	->setPub_name($row['pub_name'])
+                	->setAddress($row['address'])
+                	->setEditor_id($row['editor_id'])
+                	->setFull_address($row['adr'])
+                	->setFull_editor($row['edn'])
+                  	->setMapper($this);
+            $entries[] = $publisher;
+        }
+        return $entries;
+    }
+    
+	public function returnArray()
+    {
+        $resultSet = $this->getDbTable()->fetchAll();
+        $entries   = array();
+        foreach ($resultSet as $row) {
+            $entries[$row->id] = $row->pub_name;
+        }
+        return $entries;
+    }
+    
 	public function fetchAll()
     {
         $resultSet = $this->getDbTable()->fetchAll();

@@ -70,26 +70,74 @@ class Application_Model_AuthorMapper
                ->setCountry_id($row->country_id);
     }
         
-	public function fetchOne($id)
+	public function fetchOne($value)
     {
-        $resultSet = $this->getDbTable()->select()->from('authors',array('id','name','surname'))->where('id = ?', $id);
-        $entries   = array();
-        foreach ($resultSet as $row) {
+        $sql = $this->getDbTable()->getAdapter()->select()
+    				->from(array('a' => 'authors'), 
+    					array(
+    						'id',
+    						'name',
+    						'surname'
+    					))
+    				->where("CONCAT_WS(' ', name, surname) LIKE ?",'%'.$value.'%');
+    	$result = $this->getDbTable()->getAdapter()->fetchAll($sql);
+    	$entries   = array();
+        foreach ($result as $row) {        	
             $author = new Application_Model_Author();
-            $author->setId($row->id)          
-                   ->setName($row->name)
-                   ->setSurname($row->surname)
+            $author->setId($row['id'])
+                   ->setName($row['name'])
+                   ->setSurname($row['surname'])                   
                    ->setMapper($this);
             $entries[] = $author;
         }
         return $entries;
     }
     
+    public function selectAll()
+    {
+    	$sql = $this->getDbTable()->getAdapter()->select()
+    				->from(array('a' => 'authors'), 
+    					array(
+    						'id',
+    						'name',
+    						'surname',
+    						'country_id',
+    						'birth_date',
+    						'death_date'
+    					))
+    				->join(array('c' => 'countries'),'c.id = a.country_id', array('country'));
+    	$result = $this->getDbTable()->getAdapter()->fetchAll($sql);
+    	$entries   = array();
+        foreach ($result as $row) {        	
+            $author = new Application_Model_Author();
+            $author->setId($row['id'])
+                   ->setName($row['name'])
+                   ->setSurname($row['surname'])
+                   ->setBirth_date($row['birth_date'])
+                   ->setDeath_date($row['death_date'])
+                   ->setCountry_id($row['country_id'])
+                   ->setCountry($row['country'])                   
+                   ->setMapper($this);
+            $entries[] = $author;
+        }
+        return $entries;    	
+    }
+    
+    public function returnArray()
+	{
+		$resultSet = $this->getDbTable()->fetchAll();
+        $entries   = array();
+        foreach ($resultSet as $row) {        	
+            $entries[$row->id] = $row->name .' '.$row->surname;           
+        }
+        return $entries;
+	}
+    
 	public function fetchAll()
     {
         $resultSet = $this->getDbTable()->fetchAll();
         $entries   = array();
-        foreach ($resultSet as $row) {
+        foreach ($resultSet as $row) {        	
             $author = new Application_Model_Author();
             $author->setId($row->id)          
                    ->setName($row->name)

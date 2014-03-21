@@ -4,12 +4,15 @@ class Application_Model_Book
 {
 	protected $_id;
 	protected $_author_id;
+	protected $_author;
 	protected $_title;
 	protected $_year;
 	protected $_publisher_id;
+	protected $_publisher;
 	protected $_page_count;
 	protected $_receipt_date;
 	protected $_genre_id;
+	protected $_genre;
 	protected $_mapper;
 
 	public function __construct(array $options = null)
@@ -71,6 +74,17 @@ class Application_Model_Book
 		return $this->_author_id;
 	}
 
+	function setAuthor($author)
+	{
+		$this->_author = (string)$author;
+		return $this;
+	}
+
+	function getAuthor()
+	{
+		return $this->_author;
+	}
+	
 	function setTitle($title)
 	{
 		$this->_title = (string)$title;
@@ -93,6 +107,17 @@ class Application_Model_Book
 		return $this->_publisher_id;
 	}
 
+	public function setPublisher($publisher)
+	{
+		$this->_publisher = (string)$publisher;
+		return $this;
+	}
+
+	function getPublisher()
+	{
+		return $this->_publisher;
+	}
+	
 	function getReceipt_date()
 	{
 		return $this->_receipt_date;
@@ -137,6 +162,17 @@ class Application_Model_Book
 		return $this;
 	}
 	
+	function getGenre()
+	{
+		return $this->_genre;
+	}
+
+	function setGenre($genre)
+	{
+		$this->_genre = (string)$genre; 
+		return $this;
+	}
+	
 	public function setMapper($mapper)
 	{
 		$this->_mapper = $mapper;
@@ -168,6 +204,11 @@ class Application_Model_Book
 
 	}
 
+	public function selectAll()
+	{
+		return $this->getMapper()->selectAll();
+	}
+	
 	public function fetchOne($id)
 	{
 		return $this->getMapper()->fetchOne($id);

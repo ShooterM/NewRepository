@@ -93,9 +93,13 @@ class Application_Model_Genre
 	{
 		$this->getMapper()->find($id, $this);
 		return $this;
-
 	}
 
+	public function returnArray()
+	{
+		return $this->getMapper()->returnArray();
+	}
+	
 	public function fetchAll()
 	{
 		return $this->getMapper()->fetchAll();

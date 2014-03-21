@@ -84,6 +84,44 @@ class Application_Model_BookMapper
         return $entries;
     }
     
+	public function selectAll()
+    {
+        $sql = $this->getDbTable()->getAdapter()->select()
+        			->from(array('b' => 'books'),
+        				array(
+        					'id',
+        					'author_id',
+        					'title',
+        					'publisher_id',
+        					'year',
+        					'page_count',
+        					'receipt_date',
+        					'genre_id'
+        				))
+        			->join(array('g' => 'genres'), 'g.id = b.genre_id',array('genre'))
+        			->join(array('a' => 'authors'), 'a.id = b.author_id', array('auth' => "CONCAT_WS(' ',name,surname)"))
+        			->join(array('p' => 'publishers'),'p.id = b.publisher_id', array('pub_name'));
+        $resultSet = $this->getDbTable()->getAdapter()->fetchAll($sql);
+        $entries   = array();
+        foreach ($resultSet as $row) {
+            $book = new Application_Model_Book();
+            $book  	->setId($row['id'])
+            		->setAuthor_id($row['author_id'])
+               		->setTitle($row['title'])
+               		->setReceipt_date($row['receipt_date'])
+               		->setPublisher_id($row['publisher_id'])
+               		->setGenre_id($row['genre_id'])
+               		->setPage_count($row['page_count'])
+               		->setYear($row['year'])
+               		->setAuthor($row['auth'])
+               		->setGenre($row['genre'])
+               		->setPublisher($row['pub_name'])
+               		->setMapper($this);
+            $entries[] = $book;
+        }
+        return $entries;
+    }
+    
 	public function fetchAll()
     {
         $resultSet = $this->getDbTable()->fetchAll();

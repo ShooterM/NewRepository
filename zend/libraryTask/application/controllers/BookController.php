@@ -5,7 +5,7 @@ class BookController extends Zend_Controller_Action
 	public function indexAction()
 	{
 		$book = new Application_Model_Book();
-		$this->view->entries = $book->fetchAll();
+		$this->view->entries = $book->selectAll();
 	}
 	
 	public function insertAction()
