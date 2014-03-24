@@ -3,6 +3,9 @@ body {
 	text-align: center;
 	background: #fff;
 	color: #6b6b6b;
+	background: url("../images/background.jpg");
+	background-attachment: fixed;
+    background-size: 100%;	
 }
 
 h1 {
@@ -44,6 +47,7 @@ span {
 	width: 850px;
 	min-height: 500px;
 	margin: auto;	
+	border-radius: 10px;
 }
 
 #header a,#header a:visited {
@@ -59,6 +63,7 @@ span {
 
 #header,#footer,#welcome a {
 	color: #74af3c;
+	border-radius: 10px;
 }
 
 #menu {
