@@ -5,7 +5,10 @@ class AuthorController extends Zend_Controller_Action
 	public function indexAction()
 	{
 		$author = new Application_Model_Author();
-		$this->view->entries = $author->selectAll();
+		$form = new Application_Form_Search_Search();
+		$this->view->form = $form;
+		$this->view->entries = $author->selectAll($this->getRequest()->getParam('value'),
+												  $this->getRequest()->getParam('order'));
 	}
 	
 	public function insertAction()

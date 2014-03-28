@@ -69,22 +69,8 @@ class Application_Model_BookMapper
                ->setPage_count($row->page_count)
                ->setYear($row->year);
     }
-
-	public function fetchOne($id)
-    {
-        $resultSet = $this->getDbTable()->select()->from('books',array('id','title'))->where('id = ?', $id);
-        $entries   = array();
-        foreach ($resultSet as $row) {
-            $book = new Application_Model_Book();
-            $book  	->setId($row->id)
-               		->setTitle($row->title)
-               		->setMapper($this);
-            $entries[] = $book;
-        }
-        return $entries;
-    }
     
-	public function selectAll()
+	public function selectAll($filter = NULL, $order = NULL)
     {
         $sql = $this->getDbTable()->getAdapter()->select()
         			->from(array('b' => 'books'),
@@ -101,6 +87,18 @@ class Application_Model_BookMapper
         			->join(array('g' => 'genres'), 'g.id = b.genre_id',array('genre'))
         			->join(array('a' => 'authors'), 'a.id = b.author_id', array('auth' => "CONCAT_WS(' ',name,surname)"))
         			->join(array('p' => 'publishers'),'p.id = b.publisher_id', array('pub_name'));
+    	
+        if ($filter != null && $filter != "") {
+    		$sql->where("CONCAT_WS(' ', b.title) LIKE ?",'%'.$filter.'%');    		
+    	}
+    				
+    	if ($order != null && $order != "") {
+    		if ($order === "1") {
+    			$sql->order(array('b.id'));
+    		} else { 
+    			$sql->order(array('b.title'));
+    		}
+    	}
         $resultSet = $this->getDbTable()->getAdapter()->fetchAll($sql);
         $entries   = array();
         foreach ($resultSet as $row) {

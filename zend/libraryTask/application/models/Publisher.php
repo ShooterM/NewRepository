@@ -144,19 +144,14 @@ class Application_Model_Publisher
 
 	}
 
-	public function selectAll()
+	public function selectAll($filter = null, $order = null)
 	{
-		return $this->getMapper()->selectAll();
+		return $this->getMapper()->selectAll($filter, $order);
 	}
 	
 	public function returnArray()
 	{
 		return $this->getMapper()->returnArray();
-	}
-	
-	public function fetchOne($id)
-	{
-		return $this->getMapper()->fetchOne($id);
 	}
 	
 	public function fetchAll()

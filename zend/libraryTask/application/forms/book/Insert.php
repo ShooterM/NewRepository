@@ -26,7 +26,7 @@ class Application_Form_Book_Insert extends Zend_Form
             'required'   => false,
             'filters'    => array('StringTrim'),            
         ));
-        
+                
         $this->addElement('text', 'receipt_date', array(
             'label'      => 'Receipt_date:',
         	'class'		 => 'datepicker',        	

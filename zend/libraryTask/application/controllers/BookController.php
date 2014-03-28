@@ -5,7 +5,10 @@ class BookController extends Zend_Controller_Action
 	public function indexAction()
 	{
 		$book = new Application_Model_Book();
-		$this->view->entries = $book->selectAll();
+		$form = new Application_Form_Search_Search();
+		$this->view->form = $form;
+		$this->view->entries = $book->selectAll($this->getRequest()->getParam('value'),
+												$this->getRequest()->getParam('order'));
 	}
 	
 	public function insertAction()

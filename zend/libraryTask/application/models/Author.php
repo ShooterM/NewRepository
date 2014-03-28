@@ -155,15 +155,10 @@ class Application_Model_Author
 		return $this;
 
 	}
-
-	public function fetchOne($value)
-	{
-		return $this->getMapper()->fetchOne($value);
-	}
 	
-	public function selectAll()
+	public function selectAll($filter = null, $order = null)
 	{
-		return $this->getMapper()->selectAll();
+		return $this->getMapper()->selectAll($filter,$order);
 	}
 	
 	public function returnArray()

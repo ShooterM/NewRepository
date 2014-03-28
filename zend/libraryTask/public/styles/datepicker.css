@@ -1,9 +1,13 @@
 @CHARSET "UTF-8";
 
-#ui-datepicker-div {
+.ui-datepicker-div {
 	width: 200px;
 }
 
-.ui-datepicker-header,.ui-datepicker-calendar, span {
-	width: 200px;
+.ui-datepicker-prev,.ui-datepicker-next {
+	background: #fff;
+}
+
+.ui-datepicker-prev:hover,.ui-datepicker-next:hover {
+	background: #fff;
 }

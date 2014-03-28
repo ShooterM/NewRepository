@@ -5,7 +5,7 @@ body {
 	color: #6b6b6b;
 	background: url("../images/background.jpg");
 	background-attachment: fixed;
-    background-size: 100%;	
+	background-size: 100%;
 }
 
 h1 {
@@ -27,7 +27,7 @@ dt,dd {
 	color: #7b7b7b;
 }
 
-span {
+.span-ui {
 	display: block;
 	background-color: #fff;
 	border-radius: 10px;
@@ -46,7 +46,7 @@ span {
 	background: #eee;
 	width: 850px;
 	min-height: 500px;
-	margin: auto;	
+	margin: auto;
 	border-radius: 10px;
 }
 
@@ -117,7 +117,7 @@ table {
 	padding-top: 10px;
 	font-weight: bold;
 	font-size: 12px;
-	letter-spacing: 1px;	
+	letter-spacing: 1px;
 }
 
 .combobox {
@@ -126,6 +126,41 @@ table {
 	margin-top: 20px;
 }
 
-.small-ico { /*display: none;*/
-	
+.text-search {
+	float: left;
+	margin-left: 50px;
+	color: #74b53c;
+	font-weight: bold;
 }
+
+.text-search:hover,.text-search:focus {
+	border-style: solid;
+	border-width: 2px;
+	border-color: #74CC3C;
+}
+
+.button-search {
+	float: right;
+	height: 24px;
+	margin-right: 440px;
+	margin-top: -44px;
+	background: none repeat scroll 0 0 #EAF1E2;
+}
+
+.order-search {
+	margin: 0 0 0 448px;
+}
+
+#order-label {
+	margin: 0 0 0 680px;
+	width: 100px;
+}
+
+#order-element {
+	float: right;
+	margin: -20px 35px 0 0;
+}
+
+#order-1 {
+	margin: 0 0 0 425px;
+	}

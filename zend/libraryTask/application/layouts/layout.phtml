@@ -1,16 +1,19 @@
   <?php echo $this->doctype() ?>
- <html xmlns="http://www.w3.org/1999/xhtml">
+ <html>
  <head>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />   
    <?php 
-		$this->headLink()->appendStylesheet('/styles/style.css');
+   		
+   		$this->headLink()->appendStylesheet('/styles/style.css');		
+		$this->headLink()->appendStylesheet('/styles/dp-style.css');
 		$this->headLink()->appendStylesheet('/styles/datepicker.css');
+		$this->headScript()->appendFile('/js/jQuery.js');
+		$this->headScript()->appendFile('/js/jQuery-UI.js');
+		$this->headScript()->appendFile('/js/script.js');		
 		echo $this->headLink();
-   ?>   	
-	<link href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet" />
-	<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-   	<script src="../js/script.js"></script>
+		echo $this->headScript();
+   ?>
+
    	<title>ZF Guestbook</title>  
 </head>
 <body>
@@ -26,12 +29,6 @@
      </div>
 </div>
 <div id="menu">
-	<a href="<?php echo $this->url(
-            array('controller'=>'search'),
-            'default',
-            true) ?>">Search</a>
-	
-	<br /> 
 	<a href="<?php echo $this->url(
             array('controller'=>'book'),
             'default',

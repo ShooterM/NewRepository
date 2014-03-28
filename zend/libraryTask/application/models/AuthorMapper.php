@@ -69,31 +69,8 @@ class Application_Model_AuthorMapper
                ->setDeath_date($row->death_date)
                ->setCountry_id($row->country_id);
     }
-        
-	public function fetchOne($value)
-    {
-        $sql = $this->getDbTable()->getAdapter()->select()
-    				->from(array('a' => 'authors'), 
-    					array(
-    						'id',
-    						'name',
-    						'surname'
-    					))
-    				->where("CONCAT_WS(' ', name, surname) LIKE ?",'%'.$value.'%');
-    	$result = $this->getDbTable()->getAdapter()->fetchAll($sql);
-    	$entries   = array();
-        foreach ($result as $row) {        	
-            $author = new Application_Model_Author();
-            $author->setId($row['id'])
-                   ->setName($row['name'])
-                   ->setSurname($row['surname'])                   
-                   ->setMapper($this);
-            $entries[] = $author;
-        }
-        return $entries;
-    }
     
-    public function selectAll()
+    public function selectAll($filter = null, $order = null)
     {
     	$sql = $this->getDbTable()->getAdapter()->select()
     				->from(array('a' => 'authors'), 
@@ -106,6 +83,19 @@ class Application_Model_AuthorMapper
     						'death_date'
     					))
     				->join(array('c' => 'countries'),'c.id = a.country_id', array('country'));
+
+    	if ($filter != null && $filter != "") {
+    		$sql->where("CONCAT_WS(' ', a.name, a.surname) LIKE ?",'%'.$filter.'%');    		
+    	}
+    				
+    	if ($order != null && $order != "") {
+    		if ($order === "1") {
+    			$sql->order(array('a.id'));
+    		} else { 
+    			$sql->order(array('a.name', 'a.surname'));
+    		}
+    	}
+    	
     	$result = $this->getDbTable()->getAdapter()->fetchAll($sql);
     	$entries   = array();
         foreach ($result as $row) {        	

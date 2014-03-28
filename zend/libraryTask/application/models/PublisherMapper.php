@@ -61,22 +61,8 @@ class Application_Model_PublisherMapper
                 ->setEditor_id($row->editor_id);
     }
     
-	public function fetchOne($id)
-    {
-        $resultSet = $this->getDbTable()->select()->from('publishers',array('id','pub_name'))->where('id = ?', $id);
-        $entries   = array();
-        foreach ($resultSet as $row) {
-            $publisher = new Application_Model_Publisher();
-            $publisher->setId($row->id)          
-                  	->setPub_name($row->pub_name)
-                  	->setMapper($this);
-            $entries[] = $publisher;
-        }
-        return $entries;
-    }
-    
-	public function selectAll()
-    {
+	public function selectAll($filter = null, $order = null)
+    {    	
         $sql = $this->getDbTable()->getAdapter()->select()
         			->from(array('p' => 'publishers'),array(
         				'id',	
@@ -86,7 +72,20 @@ class Application_Model_PublisherMapper
         			))
         			->join(array('a' => 'addresses'), 'a.id = p.address', array('adr' => "CONCAT_WS(', ',c.country, a.city,a.home,a.post_index)"))
         			->join(array('c' => 'countries'), 'a.country_id = c.id', array('country'))
-        			->join(array('e' => 'editors'),'p.editor_id = e.id', array('edn' => "CONCAT_WS(' ',e.name,e.surname)"));        			
+        			->join(array('e' => 'editors'),'p.editor_id = e.id', array('edn' => "CONCAT_WS(' ',e.name,e.surname)"));
+        			
+		if ($filter != null && $filter != "") {
+			$sql->where('p.pub_name LIKE ?',"%".$filter."%");		
+		}
+		
+		if ($order != null && $order != "") {
+    		if ($order === "1") {
+    			$sql->order(array('p.id'));
+    		} else { 
+    			$sql->order(array('p.pub_name'));
+    		}
+    	}
+		
         $resultSet = $this->getDbTable()->getAdapter()->fetchAll($sql);
         $entries   = array();
         foreach ($resultSet as $row) {

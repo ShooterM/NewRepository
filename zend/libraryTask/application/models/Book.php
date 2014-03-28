@@ -204,14 +204,9 @@ class Application_Model_Book
 
 	}
 
-	public function selectAll()
+	public function selectAll($filter = NULL, $order = NULL)
 	{
-		return $this->getMapper()->selectAll();
-	}
-	
-	public function fetchOne($id)
-	{
-		return $this->getMapper()->fetchOne($id);
+		return $this->getMapper()->selectAll($filter, $order);
 	}
 	
 	public function fetchAll()
